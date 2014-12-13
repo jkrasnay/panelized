@@ -2,6 +2,7 @@ package ca.krasnay.panelized;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -41,7 +42,10 @@ public class LabelledPanel extends Panel implements PanelContainer {
 
         setOutputMarkupId(true);
 
-        add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+        WebMarkupContainer wrapper = new WebMarkupContainer("wrapper");
+        add(wrapper);
+
+        wrapper.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
 
             @Override
             public String getObject() {
@@ -62,7 +66,7 @@ public class LabelledPanel extends Panel implements PanelContainer {
         }, " "));
 
         label = new Label("label", new ResourceModel(id));
-        add(label);
+        wrapper.add(label);
 
         label.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
@@ -80,7 +84,7 @@ public class LabelledPanel extends Panel implements PanelContainer {
         }, " "));
 
         childItems = new ContainerPanel("childItems");
-        add(childItems);
+        wrapper.add(childItems);
 
     }
 
