@@ -503,7 +503,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
                 JavaScriptUtils.escapeQuotes(getMarkupId())));
 
         target.appendJavaScript(String.format("$('#%s').effRegModal('fixNestedForm')",
-                getMarkupId()));
+                formPanel.getForm().getMarkupId()));
 
         // TODO do dragging w/o JQuery UI
 //        target.appendJavaScript(String.format("$('#%s').draggable({ handle: '.bdr-hd' })",
