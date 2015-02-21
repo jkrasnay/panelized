@@ -1,0 +1,17 @@
+{
+  "name": "panelized",
+  "scripts": {
+    "less": "node_modules/.bin/lessc src/main/less/main.less > target/classes/ca/krasnay/panelized/styles.css",
+    "build": "npm run less"
+  },
+  "devDependencies": {
+    "browserify": "~8.1.3",
+    "gulp": "~3.8.11",
+    "gulp-less": "~3.0.0",
+    "gulp-util": "~3.0.3",
+    "less": "~2.4.0",
+    "vinyl-source-stream": "~1.0.0",
+    "vinyl-transform": "~1.0.0",
+    "watchify": "~2.3.0"
+  }
+}

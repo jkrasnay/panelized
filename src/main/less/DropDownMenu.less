@@ -1,0 +1,39 @@
+
+.pnl-DropDownMenu {
+  display: inline-block;
+  font-size: @font-size; /* because we have it inside an H2. Not sure if it's a great idea */
+  font-weight: normal; /* ditto */
+  position: relative;
+}
+
+.pnl-DropDownMenu-menu {
+  background-color: @menu-bg;
+  border: 1px solid #e0e0e0; /* TODO parameterize? */
+  border-radius: 3px;
+  color: @menu-fg;
+  display: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 6px 0;
+  position: absolute;
+  top: 100%;
+}
+
+.pnl-DropDownMenu--open .pnl-DropDownMenu-menu {
+  display: block;
+}
+
+
+.pnl-DropDownMenu-menu a {
+  display: block;
+  /*line-height: 18px; from Bootstrap, not sure we need it */
+  min-width: 120px;
+  padding: 3px 20px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.pnl-DropDownMenu-menu a:hover {
+  background-color: @menu-hover-bg;
+  color: @menu-hover-fg;
+}

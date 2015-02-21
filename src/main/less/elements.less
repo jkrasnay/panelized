@@ -1,0 +1,29 @@
+
+body {
+  background-color: @background-color;
+  color: @color;
+  font-size: @font-size;
+}
+
+.control {
+  color: @color;
+  box-sizing: border-box;
+  font-size: @font-size;
+  height: @control-height;
+  line-height: @control-height;
+  padding: 4px 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+select, input[type="text"], input[type="password"], input[type="file"] {
+  .control;
+  border: 1px solid #ccc;
+}
+
+button, input[type="submit"], .pnl-Button {
+  .control;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+

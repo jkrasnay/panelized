@@ -1,0 +1,188 @@
+
+
+button,
+input[type=submit] {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 20px;
+}
+
+button:active,
+input[type=submit]:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+
+.buttonsPanel {
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.buttonsPanel button,
+.buttonsPanel input[type=submit] {
+    float: right;
+    margin-left: 10px;
+}
+
+.buttonsPanel button:first-child,
+.buttonsPanel input[type=submit]:first-child {
+    background-color: #666;
+    border-color: #666;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* Dialog */
+
+.popUpForm {
+  display: none;
+  width: 700px;
+  z-index: 2; /* match Bootstrap active buttons */
+}
+
+.popUpForm .bdr-title {
+  max-width: 630px;
+}
+
+.popUpForm .bdr {
+  border-color: #666;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.popUpForm .bdr-bd {
+}
+
+.popUpForm .close {
+  position: relative;
+  top: 5px;
+  right: 2px;
+}
+
+
+.popUp-MEDIUM {
+  width: 400px;
+}
+
+.popUp-MEDIUM .bdr-title {
+  max-width: 330px;
+}
+
+div.popUp-SMALL {
+  width: 300px;
+}
+
+.popUp-MEDIUM .bdr-title {
+  max-width: 230px;
+}
+
+div.popUp-height-SHORT div.bdr-bd {
+  min-height: 100px;
+}
+
+div.popUp-height-MEDIUM div.bdr-bd {
+  min-height: 300px;
+}
+
+div.popUp-height-TALL div.bdr-bd {
+  min-height: 600px;
+}
+
+/* LabelledPanel */
+
+.labelled {
+    margin-bottom: 10px;
+    /* Creates a left-padding area into which we pull the label    */
+    /* If you change this number, you must also change the numbers */
+    /* in the next rule.                                           */
+    padding-left: 25%;
+}
+
+.labelled>label {
+    /* This drags the label out into the left padding */
+    float: left;
+    font-weight: bold;
+    margin-left: -33.33%;
+    width: 30%;
+}
+
+/* TextFieldPanel */
+
+.textField-LARGE {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.textField-MEDIUM {
+    width: 50%;
+}
+
+.textField-SMALL {
+    width: 100px;
+}
+
+.textField-TINY {
+    width: 50px;
+}
+
+
+/* TablePanel */
+
+.lightTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.lightTable thead tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.lightTable thead th {
+  text-align: left;
+}
+
+.lightTable tbody tr {
+  border-top: 1px dotted #bbb;
+}
+
+.lightTable tbody tr:first-child {
+  border-top: none;
+}
+
+.lightTable td,
+.lightTable th {
+  padding: 6px;
+}
+
+.lightTable .cell-alignCenter {
+  text-align: center;
+}
+
+.lightTable .cell-alignRight {
+  text-align: right;
+}
+
+.lightTable .cell-bold {
+  font-weight: bold;
+}
+
+.lightTable .cell-indent {
+  padding-left: 20px;
+}
+
+.lightTable .cell-narrow {
+  width: 30px;
+}
+
+.lightTable-clickable tbody tr {
+    cursor: pointer;
+}
+
+.lightTable-clickable tbody tr:hover {
+  background-color: #f4f4e0;
+}
+
