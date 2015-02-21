@@ -1,5 +1,4 @@
 
-/* Watching! */
 var DropDownMenu = require("./DropDownMenu");
 
 function init() {
@@ -8,6 +7,7 @@ function init() {
 }
 
 module.exports = {
-  init: init
+  init: init,
+  Modal: require('./Modal')
 };
 

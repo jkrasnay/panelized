@@ -20,7 +20,7 @@ public class ContainerPanel extends Panel implements PanelContainer {
 
     private String cssClass;
 
-    private boolean renderDivs;
+    private boolean renderDivs = true;
 
     public ContainerPanel(String id) {
         this(id, (IModel<?>) null);

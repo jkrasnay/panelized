@@ -1,21 +1,36 @@
 /* BorderPanel */
 
 .pnl-Border {
-    background-color: white;
-    margin-bottom: 20px;
+  background-color: white;
+  border-radius: 2px;
+  margin-bottom: 20px;
 }
 
 .pnl-Border-hd {
-    font-size: @font-size-lg;
-    padding: 10px 0 5px;
+  padding: 6px @border-padding;
 }
 
 .pnl-Border-bd {
-    /* Contain contact info that's floated right */
-    overflow: hidden;
+  /* Contain contact info that's floated right */
+  overflow: hidden;
+}
+
+.pnl-Border--padded .pnl-Border-bd {
+  padding: @border-padding;
 }
 
 .pnl-Border-ft {
-    padding: 10px 0 5px;
+  padding: 6px @border-padding;
 }
 
+.pnl-Border-left {
+  float: left;
+}
+
+.pnl-Border-right {
+  float: right;
+}
+
+.pnl-Border-title {
+  font-size: @font-size-lg;
+}

@@ -9,11 +9,12 @@
 .pnl-DropDownMenu-menu {
   background-color: @menu-bg;
   border: 1px solid #e0e0e0; /* TODO parameterize? */
-  border-radius: 3px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
   color: @menu-fg;
   display: none;
   list-style-type: none;
-  margin: 0;
+  margin: 2px 0 0;
   padding: 6px 0;
   position: absolute;
   top: 100%;
@@ -21,6 +22,11 @@
 
 .pnl-DropDownMenu--open .pnl-DropDownMenu-menu {
   display: block;
+}
+
+.pnl-DropDownMenu--open .pnl-DropDownMenu-toggle {
+  background-color: #e6e6e6;
+  background-image: none;
 }
 
 

@@ -72,7 +72,7 @@ public class BorderPanel extends Panel implements PanelContainer {
         add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return padded ? "bdr-padded" : null;
+                return padded ? "pnl-Border--padded" : null;
             }
         }, " "));
 

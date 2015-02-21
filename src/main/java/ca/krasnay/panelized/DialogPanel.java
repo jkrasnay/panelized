@@ -350,6 +350,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         border = new BorderPanel(formPanel.newPanelId());
         formPanel.addPanel(border);
+        border.setPadded(true);
 
         border.addHeaderLeftItem(new BorderTitlePanel("title", Model.of(title)));
 
@@ -413,8 +414,10 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         getForm().setEnabled(false);
 
-        target.prependJavaScript(String.format("$('#%s').effRegModal('hide', %s)",
-                getMarkupId(), keepOverlay));
+//        target.prependJavaScript(String.format("$('#%s').effRegModal('hide', %s)",
+//                getMarkupId(), keepOverlay));
+
+        target.appendJavaScript(String.format("Panelized.Modal.hide(%s)", keepOverlay));
 
         destroyFrame();
 
@@ -499,15 +502,18 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         getForm().setEnabled(true);
 
-        target.appendJavaScript(String.format("$('#%s').effRegModal('show')",
-                JavaScriptUtils.escapeQuotes(getMarkupId())));
-
-        target.appendJavaScript(String.format("$('#%s').effRegModal('fixNestedForm')",
-                formPanel.getForm().getMarkupId()));
+//        target.appendJavaScript(String.format("$('#%s').effRegModal('show')",
+//                JavaScriptUtils.escapeQuotes(getMarkupId())));
+//
+//        target.appendJavaScript(String.format("$('#%s').effRegModal('fixNestedForm')",
+//                formPanel.getForm().getMarkupId()));
 
         // TODO do dragging w/o JQuery UI
 //        target.appendJavaScript(String.format("$('#%s').draggable({ handle: '.bdr-hd' })",
 //                formPanel.getMarkupId()));
+
+        target.appendJavaScript(String.format("Panelized.Modal.show('#%s')",
+                JavaScriptUtils.escapeQuotes(getMarkupId())));
 
         target.add(this);
 
