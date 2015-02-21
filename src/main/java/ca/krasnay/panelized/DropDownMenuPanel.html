@@ -1,0 +1,13 @@
+<wicket:panel xmlns:wicket>
+  <div class="pnl-DropDownMenu">
+    <a wicket:id="name" href="#" class="pnl-Button pnl-DropDownMenu-toggle">Foo</a>
+    <ul wicket:id="menu" class="pnl-DropDownMenu-menu">
+      <li wicket:id="item">
+        <a wicket:id="link" href="#" class="pnl-DropDownMenu-link"><span wicket:id="text">_</span></a>
+        <wicket:container wicket:id="submenu"></wicket:container>
+      </li>
+    </ul>
+  </div>
+  <div wicket:id="panel" style="display:none">
+  </div>
+</wicket:panel>
