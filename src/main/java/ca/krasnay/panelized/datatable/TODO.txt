@@ -1,0 +1,14 @@
+Migration
+
+- remove details from DTP into composed controls
+    - DTP keeps current page, but pagination controls are a header component
+    - move filters to filter header component, interacts with DTP and DataProvider
+    - move actions, moves to ToolsColumn
+    - URL parameters
+        - to formulate URL parameters, iterate over DTP and all added controls, 
+          asking each for their parameters
+        - to initialize, iterate over added controls, passing in URL parameters
+          and asking them to initialize themselves
+          
+- perhaps we should leave out the AccessController mechanism, let the app do
+  it before adding the actions
