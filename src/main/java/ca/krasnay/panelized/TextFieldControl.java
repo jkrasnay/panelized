@@ -8,6 +8,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
@@ -48,6 +49,10 @@ public class TextFieldControl<T> extends AbstractControl<T> {
     }
 
     public TextFieldControl(String id, IModel<T> model) {
+        this(id, model, false);
+    }
+
+    protected TextFieldControl(String id, IModel<T> model, boolean passwordField) {
 
         super(id, model);
 
@@ -99,29 +104,63 @@ public class TextFieldControl<T> extends AbstractControl<T> {
         });
 
 
-        textField = new TextField<T>("component", new DelegateModel<T>(this)) {
+        if (passwordField) {
 
-            @Override
-            public <C> IConverter<C> getConverter(Class<C> type) {
-                return TextFieldControl.this.getConverter(type);
-            }
+            @SuppressWarnings("unchecked")
+            TextField<T> passwordTextField = (TextField<T>) new PasswordTextField("component", new DelegateModel<String>(this)) {
 
-            @Override
-            public boolean isEnabled() {
-                return isEnabledInternal();
+                @Override
+                public <C> IConverter<C> getConverter(Class<C> type) {
+                    return TextFieldControl.this.getConverter(type);
+                }
+
+                @Override
+                public boolean isEnabled() {
+                    return isEnabledInternal();
+                };
+
+                @Override
+                public boolean isRequired() {
+                    return TextFieldControl.this.isRequired();
+                }
+
+                @Override
+                protected void onComponentTag(ComponentTag tag) {
+                    tag.put("type", "password");
+                    super.onComponentTag(tag);
+                    onTextFieldComponentTag(tag);
+                }
             };
 
-            @Override
-            public boolean isRequired() {
-                return TextFieldControl.this.isRequired();
-            }
+            textField = passwordTextField;
 
-            @Override
-            protected void onComponentTag(ComponentTag tag) {
-                super.onComponentTag(tag);
-                onTextFieldComponentTag(tag);
-            }
-        };
+        } else {
+
+            textField = new TextField<T>("component", new DelegateModel<T>(this)) {
+
+                @Override
+                public <C> IConverter<C> getConverter(Class<C> type) {
+                    return TextFieldControl.this.getConverter(type);
+                }
+
+                @Override
+                public boolean isEnabled() {
+                    return isEnabledInternal();
+                };
+
+                @Override
+                public boolean isRequired() {
+                    return TextFieldControl.this.isRequired();
+                }
+
+                @Override
+                protected void onComponentTag(ComponentTag tag) {
+                    super.onComponentTag(tag);
+                    onTextFieldComponentTag(tag);
+                }
+            };
+
+        }
 
         wrapper.add(textField);
 
