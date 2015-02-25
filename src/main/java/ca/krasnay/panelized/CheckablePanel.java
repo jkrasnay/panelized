@@ -80,7 +80,7 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
         return this;
     }
 
-    public PanelContainer addPanel(Panel item) {
+    public PanelContainer addPanel(Component item) {
         return childItems.addPanel(item);
     }
 
