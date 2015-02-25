@@ -93,7 +93,7 @@ public class DropDownMenuPanel extends Panel {
 
     private Label label;
 
-    private String icon = "icon-cog";
+    private String icon = "cogs";
 
     private RepeatingView itemRepeater;
 
@@ -118,7 +118,7 @@ public class DropDownMenuPanel extends Panel {
         label.setDefaultModel(new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return String.format("<i class='%s'></i>", icon);
+                return String.format("<i class='fa fa-%s'></i>", icon);
             }
         });
         label.setEscapeModelStrings(false);
