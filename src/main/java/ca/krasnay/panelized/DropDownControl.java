@@ -2,6 +2,8 @@ package ca.krasnay.panelized;
 
 import java.util.List;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -118,6 +120,25 @@ public class DropDownControl<T> extends AbstractControl<T> {
 //        });
 //        return this;
 //    }
+
+    /**
+     * Calls the provided action when the dropdown changes. Note that the model
+     * object is updated when changed, as per Wicket's
+     * AjaxFormComponentUpdatingBehavior. This means that action code can find
+     * out the new value for this dropdown by inspecting the model object;
+     * however, it means that even if the form is cancelled the model object
+     * will have the new value.
+     */
+    public DropDownControl<T> onChange(final AjaxAction action) {
+        dropDownChoice.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget target) {
+                action.invoke(target);
+            }
+        });
+        return this;
+    }
+
 
     /**
      * Callback method called from the onComponentTag field of the DropDownControl.
