@@ -1,6 +1,7 @@
 package ca.krasnay.panelized;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -24,6 +25,11 @@ public class FormPanel extends Panel implements PanelContainer {
         super(id);
 
         form = new Form<Void>("form") {
+            @Override
+            protected void onComponentTag(ComponentTag tag) {
+                super.onComponentTag(tag);
+                onFormComponentTag(tag);
+            }
             protected void onValidate() {
                 FormPanel.this.onValidateInternal();
             };
@@ -48,6 +54,13 @@ public class FormPanel extends Panel implements PanelContainer {
     @Override
     public String newPanelId() {
         return panelRepeater.newChildId();
+    }
+
+    /**
+     * Called from the Form component's onComponentTag method so that the
+     * subclass can override attributes.
+     */
+    protected void onFormComponentTag(ComponentTag tag) {
     }
 
     /**
