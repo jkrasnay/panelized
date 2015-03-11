@@ -1,4 +1,4 @@
-package ca.krasnay.panelized.datatable;
+package ca.krasnay.panelized.datatable.action;
 
 import java.io.Serializable;
 import java.util.List;

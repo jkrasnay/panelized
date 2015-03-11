@@ -202,6 +202,138 @@ function init(e, reorderable, remoteSearchUrl) {
 
 }
 
+/**
+ * Initializes the actions column on a data table.
+ *
+ * @param e {string|object} Element or jQuery selector representing the data table.
+ * @param remoteSearchUrl {string} URL of the data table's behaviour.
+ */
+function initActions(e, remoteSearchUrl) {
+
+    //
+    // Set up click handling on checkboxes and links in the tools column
+    //
+
+    /**
+     * Returns a JQuery object consisting of all rows (TR elements) that
+     * have their checkboxes checked.
+     */
+    var checkedRows = function () {
+        return $(e).find('tr').has('td.dt-tools input:checkbox:checked');
+    };
+
+    /**
+     * Returns a JQuery object consisting of all A elements that are on
+     * checked rows and are enabled for the given action index.
+     */
+    var activeActions = function (actionIndex) {
+        return checkedRows().find('a[data-action=' + actionIndex + ']').not('.disabled');
+    };
+
+    /**
+     * Updates the CSS class of multi-actions (those shown in the cog menu
+     * in the table header) to reflect selected rows.
+     */
+    var updateMultiActionEnablement = function () {
+
+        $(e).find('th.dt-tools a').not('.btn').each(function () {
+            var $this = $(this);
+            var actionIndex = $this.data('action');
+            if (activeActions(actionIndex).size() > 0) {
+                $this.removeClass('disabled');
+            } else {
+                $this.addClass('disabled');
+            }
+        });
+
+
+        //
+        // Disable page-level menu items if there are any checked checkboxes
+        //
+        var checked = ($(e).find('td.dt-tools input:checked').size() > 0);
+
+        $('.pg-title .dropdown-menu a').each(function () {
+            var $this = $(this);
+            if (checked) { // TODO only enable/disable if there's a matching multi-action on the data table
+
+                if (!$this.data('onclick')) {
+                    $this.data('onclick', $this.attr('onclick'));
+                }
+
+                $this.addClass('disabled')
+                .attr('onclick', 'return false');
+
+            } else {
+
+                //
+                // NOTE: force-disabled set by DropDownMenuPanel if the action itself is disabled
+                //
+
+                $this.not('.force-disabled').removeClass('disabled');
+
+                if ($this.data('onclick')) {
+                    $this.attr('onclick', $this.data('onclick'));
+                }
+            }
+        });
+
+    };
+
+    updateMultiActionEnablement();
+
+    $(e).on('click', 'th.dt-tools input:checkbox', function (e) {
+        $(this).parents('table').find('td.dt-tools input:checkbox').prop('checked', $(this).prop('checked'));
+        updateMultiActionEnablement();
+    });
+
+    $(e).on('click', 'th.dt-tools a[data-action]', function (e) {
+
+        var $this = $(this);
+
+        if (!$(this).hasClass('disabled')) {
+
+            var actionIndex = $this.data('action');
+            var checkedCount = checkedRows().size();
+
+            var rowIds = activeActions(actionIndex).parents('tr').map(function() {
+                return $(this).data('rowId');
+            }).get().join(',');
+
+            var url = remoteSearchUrl + '&action=' + actionIndex + '&rowId=' + rowIds + "&checkedCount=" + checkedRows().size();
+
+            checkedRows().has('a[data-action=' + actionIndex + '].disabled')
+            .filter(function () { return $(this).data('row-name'); })
+            .slice(0, 10).each(function() {
+                url += '&badRow=' + encodeURIComponent($(this).data('rowName'));
+            });
+
+            Wicket.Ajax.get({ u: url });
+        }
+
+        e.preventDefault();
+
+    });
+
+    $(e).on('click', 'td.dt-tools input:checkbox', function (e) {
+        updateMultiActionEnablement();
+    });
+
+    $(e).on('click', 'td.dt-tools a[data-action]', function (e) {
+        if (!$(this).hasClass('disabled')) {
+            var url = remoteSearchUrl + '&action=' + $(this).data('action') + '&rowId=' + $(this).parents('tr').data('rowId');
+            Wicket.Ajax.get({ u: url });
+        }
+        e.preventDefault();
+    });
+
+    $(e).on('click', 'td.dt-comment a', function (e) {
+        var url = remoteSearchUrl + '&comment=1&rowId=' + $(this).parents('tr').data('rowId');
+        Wicket.Ajax.get({ u: url });
+        e.preventDefault();
+    });
+
+}
+
 
 // From https://github.com/DrPheltRight/jquery-caret
 //Set caret position easily in jQuery
@@ -367,7 +499,8 @@ function init(e, reorderable, remoteSearchUrl) {
 */
 
 module.exports = {
-  init: init
+  init: init,
+  initActions: initActions
 };
 
 

@@ -523,11 +523,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
         setCurrentPage(target, getCurrentPage() + 1);
     }
 
-    @Override
-    public void onAction(AjaxRequestTarget target) {
-
-        super.onAction(target);
-
+//    public void onAction(AjaxRequestTarget target) {
+//
 //        IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
 //
 //        String filter = req.getParameterValue("filter").toString();
@@ -553,8 +550,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //            String rowId = req.getParameterValue("rowId").toString();
 //            commentActionPanel.invoke(target, rowId);
 //        }
-
-    }
+//
+//    }
 
     @SuppressWarnings("unchecked")
     @Override
