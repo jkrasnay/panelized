@@ -157,21 +157,21 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         int directActionIndex = 0;
 
         if (viewAction != null) {
-            html.append(String.format("<div class='btn-group'><a href='#' class='btn btn-mini %s' title='View' data-action='%d'><i class='icon-eye-open'></i></a></div>",
+            html.append(String.format("<a href='#' class='pnl-Button %s' title='View' data-action='%d'><i class='fa fa-eye-open'></i></a>",
                     viewAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (editAction != null) {
-            html.append(String.format("<div class='btn-group'><a href='#' class='btn btn-mini %s' title='Edit' data-action='%d'><i class='icon-edit'></i></a></div>",
+            html.append(String.format("<a href='#' class='pnl-Button %s' title='Edit' data-action='%d'><i class='fa fa-edit'></i></a>",
                     editAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (deleteAction != null) {
-            html.append(String.format("<div class='btn-group'><a href='#' class='btn btn-mini %s' title='Delete' data-action='%d'><i class='icon-trash'></i></a></div>",
+            html.append(String.format("<a href='#' class='pnl-Button %s' title='Delete' data-action='%d'><i class='fa fa-trash'></i></a>",
                     deleteAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
         }
