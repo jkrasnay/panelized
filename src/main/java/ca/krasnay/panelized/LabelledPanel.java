@@ -14,8 +14,7 @@ import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 
 /**
- * Abstract form item panel that displays a label to the left or top of its
- * input control.
+ * Container panel that displays a label, typically to the left of its children.
  *
  * This component will add the CSS class "required" if it's first FormComponent
  * child is required.
@@ -33,12 +32,16 @@ public class LabelledPanel extends Panel implements PanelContainer {
     private boolean wide;
 
     public LabelledPanel(String id) {
-        this(id, null);
+        this(id, (String) null);
     }
 
-    public LabelledPanel(String id, IModel<?> model) {
+    public LabelledPanel(String id, String label) {
+        this(id, Model.of(label));
+    }
 
-        super(id, model);
+    public LabelledPanel(String id, IModel<String> labelModel) {
+
+        super(id);
 
         setOutputMarkupId(true);
 
@@ -65,7 +68,7 @@ public class LabelledPanel extends Panel implements PanelContainer {
             }
         }, " "));
 
-        label = new Label("label", new ResourceModel(id));
+        label = new Label("label", labelModel != null ? labelModel : new ResourceModel(id));
         wrapper.add(label);
 
         label.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
