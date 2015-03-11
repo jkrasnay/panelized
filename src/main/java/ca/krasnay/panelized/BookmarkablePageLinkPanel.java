@@ -13,7 +13,7 @@ public class BookmarkablePageLinkPanel extends Panel {
         if (pageRef.getPageClass().isAnnotationPresent(PageTitle.class)) {
             return Model.of(pageRef.getPageClass().getAnnotation(PageTitle.class).value());
         } else {
-            throw new RuntimeException("Page " + pageRef.getPageClass().getName() + " does not have a @PageRef annotation");
+            throw new RuntimeException("Page " + pageRef.getPageClass().getName() + " does not have a @PageTitle annotation");
         }
     }
 
