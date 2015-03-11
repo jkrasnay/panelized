@@ -4,6 +4,7 @@ Migration
     - DTP keeps current page, but pagination controls are a header component
     - move filters to filter header component, interacts with DTP and DataProvider
     - move actions, moves to ToolsColumn
+        - PROBLEM: ToolsColumn is not a panel, can't have child panels
     - URL parameters
         - to formulate URL parameters, iterate over DTP and all added controls, 
           asking each for their parameters

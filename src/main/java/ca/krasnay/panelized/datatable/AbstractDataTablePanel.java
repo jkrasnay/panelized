@@ -11,6 +11,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.core.util.lang.PropertyResolver;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
@@ -18,6 +19,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.cycle.RequestCycle;
 
+import ca.krasnay.panelized.AccessController;
 import ca.krasnay.panelized.BorderPanel;
 
 /**
@@ -132,7 +134,7 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
             throw new RuntimeException("You must set the access controller on the data table before adding actions");
         }
 
-        if (accessController.canAccess(action)) {
+        if (accessController.canAccess(action.getClass())) {
             actions.add(action);
         }
 
@@ -418,8 +420,8 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
 
 //        response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(AbstractDataTablePanel.class, "DataTable.js")));
 //
-//        String script = String.format("dt_init('#%s', %s, '%s');", getMarkupId(), isReorderable(), getCallbackUrl());
-//        response.render(OnDomReadyHeaderItem.forScript(script));
+        String script = String.format("Panelized.DataTable.init('#%s', %s, '%s');", getMarkupId(), isReorderable(), getCallbackUrl());
+        response.render(OnDomReadyHeaderItem.forScript(script));
 
     }
 
@@ -449,7 +451,7 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
             throw new RuntimeException("You must set the access controller on the data table before adding actions");
         }
 
-        if (accessController.canAccess(deleteAction)) {
+        if (accessController.canAccess(deleteAction.getClass())) {
             this.deleteAction = deleteAction;
         }
 
@@ -477,7 +479,7 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
             throw new RuntimeException("You must set the access controller on the data table before adding actions");
         }
 
-        if (accessController.canAccess(editAction)) {
+        if (accessController.canAccess(editAction.getClass())) {
             this.editAction = editAction;
         }
 
@@ -514,7 +516,7 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
             throw new RuntimeException("You must set the access controller on the data table before adding actions");
         }
 
-        if (accessController.canAccess(viewAction)) {
+        if (accessController.canAccess(viewAction.getClass())) {
             this.viewAction = viewAction;
         }
 

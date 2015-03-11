@@ -110,10 +110,11 @@ public class ToolsColumn<T> extends AbstractColumn<T, String> {
     String buildActionMenu(boolean singleRow, T row) {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("<div class='btn-group'>");
+//        sb.append("<div class='btn-group'>");
 
-        sb.append("<a class='btn btn-mini dropdown-toggle' title='Actions' data-toggle='dropdown'><i class='icon-cog'></i></a>")
-        .append("<ul class='dropdown-menu'>");
+        sb.append("<div class='pnl-DropDownMenu'>")
+        .append("<a class='pnl-Button pnl-DropDownMenu-toggle' title='Actions' href='#'><i class='fa fa-cog'></i></a>")
+        .append("<ul class='pnl-DropDownMenu-menu'>");
 
         List<DataTableAction<T>> allActions = dataTablePanel.getAllActions();
 
