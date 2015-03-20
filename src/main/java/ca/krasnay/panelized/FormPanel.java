@@ -24,6 +24,8 @@ public class FormPanel extends Panel implements PanelContainer {
 
         super(id);
 
+        setOutputMarkupId(true);
+
         form = new Form<Void>("form") {
             @Override
             protected void onComponentTag(ComponentTag tag) {
