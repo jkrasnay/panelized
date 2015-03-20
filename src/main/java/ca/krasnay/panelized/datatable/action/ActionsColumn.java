@@ -157,7 +157,7 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         int directActionIndex = 0;
 
         if (viewAction != null) {
-            html.append(String.format("<a href='#' class='pnl-Button %s' title='View' data-action='%d'><i class='fa fa-eye-open'></i></a>",
+            html.append(String.format("<a href='#' class='pnl-Button %s' title='View' data-action='%d'><i class='fa fa-eye'></i></a>",
                     viewAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
