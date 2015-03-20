@@ -17,21 +17,37 @@
 @link-color: @hilite-color;
 
 
-/*
- * Controls are buttons and inputs with a single line of text.
+/* Vertical margins between vertically stacked objects
+ */
+
+@v-margin: 10px;
+
+/* Horizontal padding within borders, table cells
+ * We keep this consistent to vertically align, for example,
+ * border headers with nested tables
+ */
+@h-padding: 6px;
+
+/* Controls are buttons and inputs with a single line of text.
  */
 
 @control-v-padding: 6px;
 @control-v-border: 1px;
 @control-height: @font-size + 2 * @control-v-padding + 2 * @control-v-border;
 
-/*
- * Drop down menus
+/* Drop down menus
  */
 @menu-bg: #fff;
 @menu-fg: #333;
 @menu-hover-bg: #e8e8e8;
 @menu-hover-fg: #333;
 
-@border-padding: 10px;
+@border-v-padding: 10px;
+
+/*
+ * Feedback panel
+ */
+@errorText:               #b94a48;
+@errorBackground:         #f2dede;
+@errorBorder:             darken(spin(@errorBackground, -10), 3%);
 
