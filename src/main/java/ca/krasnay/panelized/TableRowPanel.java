@@ -2,6 +2,8 @@ package ca.krasnay.panelized;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 public class TableRowPanel extends Panel {
 
@@ -22,11 +24,19 @@ public class TableRowPanel extends Panel {
         return this;
     }
 
-    public TableRowPanel addCell(String text) {
+    public TableRowPanel addCell(IModel<String> text) {
         return addCell(new TextPanel(newCellId(), text));
     }
 
+    public TableRowPanel addCell(String text) {
+        return addCell(Model.of(text));
+    }
+
     public TableRowPanel addCell(String text, CellStyle style) {
+        return addCell(Model.of(text), style);
+    }
+
+    public TableRowPanel addCell(IModel<String> text, CellStyle style) {
         return addCell(new TextPanel(newCellId(), text), style);
     }
 
