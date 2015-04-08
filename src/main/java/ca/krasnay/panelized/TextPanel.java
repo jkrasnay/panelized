@@ -38,6 +38,9 @@ public class TextPanel extends Panel {
             @Override
             public String getObject() {
                 StringBuilder sb = new StringBuilder();
+                if (cssClass != null) {
+                    sb.append(cssClass).append(" ");
+                }
                 if (bold) {
                     sb.append("txt-bold ");
                 }
