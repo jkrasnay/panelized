@@ -19,9 +19,17 @@ public class CellStyle extends Behavior {
         RIGHT;
     }
 
+    private enum Valign {
+        TOP,
+        MIDDLE,
+        BOTTOM;
+    }
+
     private boolean bold;
 
     private Align align = Align.LEFT;
+
+    private Valign valign;
 
     private boolean indent;
 
@@ -54,6 +62,16 @@ public class CellStyle extends Behavior {
         return this;
     }
 
+    public CellStyle valignTop() {
+        this.valign = Valign.TOP;
+        return this;
+    }
+
+    public CellStyle valignBottom() {
+        this.valign = Valign.BOTTOM;
+        return this;
+    }
+
     public CellStyle indent() {
         this.indent = true;
         return this;
@@ -78,6 +96,14 @@ public class CellStyle extends Behavior {
 
         if (align == Align.RIGHT) {
             sb.append("cell-alignRight ");
+        }
+
+        if (valign == Valign.TOP) {
+            sb.append("cell-valignTop ");
+        }
+
+        if (valign == Valign.BOTTOM) {
+            sb.append("cell-valignBottom ");
         }
 
         if (indent) {
