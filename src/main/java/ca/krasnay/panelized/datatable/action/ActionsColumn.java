@@ -361,6 +361,10 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         return false;
     }
 
+    public String newPanelId() {
+        return dataTablePanel.newPanelId();
+    }
+
     public ActionsColumn<T> setDeleteAction(DataTableAction<T> deleteAction) {
 
         this.deleteAction = deleteAction;
