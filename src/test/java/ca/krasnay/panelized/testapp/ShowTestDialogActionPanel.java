@@ -4,6 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 
 import ca.krasnay.panelized.AjaxAction;
 import ca.krasnay.panelized.DialogActionPanel;
+import ca.krasnay.panelized.DialogPanel;
 import ca.krasnay.panelized.NamedAjaxAction;
 
 public class ShowTestDialogActionPanel extends DialogActionPanel implements NamedAjaxAction {
@@ -24,13 +25,13 @@ public class ShowTestDialogActionPanel extends DialogActionPanel implements Name
     }
 
     @Override
-    protected void handleSaveException(AjaxRequestTarget target, Exception e) {
-        // Here we log the exception and notify the user an app-specific manner
+    protected DialogPanel getDialog() {
+        return dialog;
     }
 
     @Override
-    protected void hideDialog(AjaxRequestTarget target) {
-        dialog.hide(target);
+    protected void handleSaveException(AjaxRequestTarget target, Exception e) {
+        // Here we log the exception and notify the user an app-specific manner
     }
 
     @Override

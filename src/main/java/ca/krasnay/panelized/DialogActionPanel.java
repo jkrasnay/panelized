@@ -47,7 +47,10 @@ public abstract class DialogActionPanel extends ContainerPanel implements Condit
             try {
                 isSaveAndNew = false;
                 doSave(target);
-                hideDialog(target);
+                DialogPanel dialog = getDialog();
+                if (dialog != null) {
+                    dialog.hide(target);
+                }
             } catch (Exception e) {
                 handleSaveException(target, e);
             }
@@ -143,9 +146,11 @@ public abstract class DialogActionPanel extends ContainerPanel implements Condit
     protected abstract void handleSaveException(AjaxRequestTarget target, Exception e);
 
     /**
-     * Hides the dialog. Called from the save action.
+     * Returns the currently displayed dialog. Used by the save action
+     * to hide the dialog. May also be used by sub-classes, for example,
+     * to refresh the feedback panel to display an error.
      */
-    protected abstract void hideDialog(AjaxRequestTarget target);
+    protected abstract DialogPanel getDialog();
 
     /**
      * Default enablement for named ajax actions. Returns true.
