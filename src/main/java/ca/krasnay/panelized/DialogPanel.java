@@ -224,7 +224,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
                 @Override
                 protected void onError(AjaxRequestTarget target, Form<?> form) {
-                    updateFeedback(target);
+                    refreshFeedback(target);
                 }
 
                 @Override
@@ -458,6 +458,15 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
     }
 
+    /**
+     * Forces a refresh of the feedback panel on the given Ajax request.
+     */
+    public void refreshFeedback(AjaxRequestTarget target) {
+        if (feedbackPanel != null) {
+            target.add(feedbackPanel);
+        }
+    }
+
     public void setCssClass(String cssClass) {
         this.cssClass = cssClass;
     }
@@ -521,12 +530,6 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         isShowing = true;
 
-    }
-
-    private void updateFeedback(AjaxRequestTarget target) {
-        if (feedbackPanel != null) {
-            target.add(feedbackPanel);
-        }
     }
 
     /**
