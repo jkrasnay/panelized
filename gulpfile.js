@@ -22,7 +22,7 @@ gulp.task('css', function () {
   .pipe(gulp.dest(dest));
 });
 
-gulp.task('watch-css', function() {
+gulp.task('watch-css', [ 'css' ], function() {
   gulp.watch('src/main/less/*.less', ['css']);
 });
 
@@ -30,7 +30,7 @@ gulp.task('js', function () {
   return scripts(false);
 });
 
-gulp.task('watch-js', function () {
+gulp.task('watch-js', [ 'js' ], function () {
   return scripts(true);
 });
 
