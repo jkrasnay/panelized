@@ -26,6 +26,8 @@ public class BorderPanel extends Panel implements PanelContainer {
 
     private String anchorName;
 
+    private String cssClass;
+
     private RepeatingView headerLeftItemRepeater;
 
     private RepeatingView headerRightItemRepeater;
@@ -62,14 +64,17 @@ public class BorderPanel extends Panel implements PanelContainer {
             }
         })));
 
-        add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+        WebMarkupContainer wrapper = new WebMarkupContainer("wrapper");
+        add(wrapper);
+
+        wrapper.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
                 return getCssClass();
             }
         }, " "));
 
-        add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+        wrapper.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
                 return padded ? "pnl-Border--padded" : null;
@@ -81,13 +86,13 @@ public class BorderPanel extends Panel implements PanelContainer {
         //
 
         WebMarkupContainer header = new WebMarkupContainer("header");
-        add(header);
+        wrapper.add(header);
 
-        add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+        header.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
                 if (headerLeftItemRepeater.size() == 0 && headerRightItemRepeater.size() == 0) {
-                    return "bdr-hd-empty";
+                    return "pnl-Border-hd--empty";
                 } else {
                     return null;
                 }
@@ -105,13 +110,13 @@ public class BorderPanel extends Panel implements PanelContainer {
         //
 
         WebMarkupContainer footer = new WebMarkupContainer("footer");
-        add(footer);
+        wrapper.add(footer);
 
-        add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+        footer.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
                 if (footerLeftItemRepeater.size() == 0 && footerRightItemRepeater.size() == 0) {
-                    return "bdr-ft-empty";
+                    return "pnl-Border-ft--empty";
                 } else {
                     return null;
                 }
@@ -129,7 +134,7 @@ public class BorderPanel extends Panel implements PanelContainer {
         //
 
         panelRepeater = new RepeatingView("panel");
-        add(panelRepeater);
+        wrapper.add(panelRepeater);
 
     }
 
@@ -167,12 +172,11 @@ public class BorderPanel extends Panel implements PanelContainer {
 
     /**
      * Returns a CSS class to be appended to the 'class' attribute of the
-     * border panel. By default returns null, which does not modify the class
-     * attribute. Subclasses can override this to append CSS classes to get
-     * particular rendering behaviour.
+     * border panel. Subclasses can override this if the desired CSS class
+     * changed dynamically.
      */
     protected String getCssClass() {
-        return null;
+        return cssClass;
     }
 
     public boolean isPadded() {
@@ -197,6 +201,15 @@ public class BorderPanel extends Panel implements PanelContainer {
      */
     public BorderPanel setAnchorName(String anchorName) {
         this.anchorName = anchorName;
+        return this;
+    }
+
+    /**
+     * Sets the CSS class to be appended to the 'class' attribute of the
+     * border panel. By default the CSS class is null.
+     */
+    public BorderPanel setCssClass(String cssClass) {
+        this.cssClass = cssClass;
         return this;
     }
 

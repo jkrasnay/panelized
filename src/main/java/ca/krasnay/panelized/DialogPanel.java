@@ -325,7 +325,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
         add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                String result = "popUpForm popUp-" + size + " popUp-height-" + height;
+                String result = "pnl-Dialog pnl-Dialog--" + size.name().toLowerCase() + " pnl-Dialog--height-" + height.name().toLowerCase();
                 String cssClass = getCssClass();
                 if (cssClass != null) {
                     result += " " + cssClass;
@@ -342,6 +342,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
         destroyFrame();
 
         formPanel = new FormPanel(childRepeater.newChildId()) {
+            @Override
             protected void onValidate() {
                 DialogPanel.this.onValidate();
             };
@@ -351,6 +352,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
         border = new BorderPanel(formPanel.newPanelId());
         formPanel.addPanel(border);
         border.setPadded(true);
+        border.setCssClass("pnl-Border--dialog");
 
         border.addHeaderLeftItem(new BorderTitlePanel("title", Model.of(title)));
 
