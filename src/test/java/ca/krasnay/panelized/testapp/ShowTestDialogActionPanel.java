@@ -5,7 +5,6 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import ca.krasnay.panelized.AjaxAction;
 import ca.krasnay.panelized.DialogActionPanel;
 import ca.krasnay.panelized.NamedAjaxAction;
-import ca.krasnay.panelized.NotificationMessage;
 
 public class ShowTestDialogActionPanel extends DialogActionPanel implements NamedAjaxAction {
 
@@ -25,14 +24,18 @@ public class ShowTestDialogActionPanel extends DialogActionPanel implements Name
     }
 
     @Override
+    protected void handleSaveException(AjaxRequestTarget target, Exception e) {
+        // Here we log the exception and notify the user an app-specific manner
+    }
+
+    @Override
     protected void hideDialog(AjaxRequestTarget target) {
         dialog.hide(target);
     }
 
     @Override
-    protected NotificationMessage save() {
-        // Here we would save the entity via the DAO
-        return null;
+    protected void save(AjaxRequestTarget target) {
+        // Here we save the entity
     }
 
     @Override

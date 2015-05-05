@@ -80,22 +80,11 @@ public abstract class DialogActionPanel extends ContainerPanel implements Condit
 
         this.onSaveAction = onSaveAction;
 
-//        this.notificationPopup = new AlertPopUpPanel(newPanelId(), Model.of("Notice"));
-//        addPanel(this.notificationPopup);
-
     }
 
     private void doSave(AjaxRequestTarget target) {
 
-        NotificationMessage message = save();
-
-        if (message != null) {
-//            if (message.isShowAsPopup()) {
-//                notificationPopup.setText(message.toString()).show(target);
-//            } else {
-//                AdminSitePage.showNotification(target, message.toString());
-//            }
-        }
+        save(target);
 
         if (onSaveAction != null) {
             onSaveAction.invoke(target);
@@ -151,13 +140,7 @@ public abstract class DialogActionPanel extends ContainerPanel implements Condit
         }
     }
 
-    private void handleSaveException(AjaxRequestTarget target, Exception e) {
-        log.error(String.format("Error processing action %s", DialogActionPanel.this.getClass().getSimpleName()), e);
-//        exceptionNotifier.notify(e, "", null);
-        hideDialog(target);
-//        Session.get().error("Error processing request. Please contact Effective Registration support.");
-//        ((AdminSitePage) getPage()).updateFeedbackPanel(target);
-    }
+    protected abstract void handleSaveException(AjaxRequestTarget target, Exception e);
 
     /**
      * Hides the dialog. Called from the save action.
@@ -205,17 +188,9 @@ public abstract class DialogActionPanel extends ContainerPanel implements Condit
     }
 
     /**
-     * Performs the action once the popup has been dismissed. Should return
-     * a notification message indicating that the action was complete. The
-     * notification message should take a form similar to the following examples:
-     *
-     * <ul>
-     * <li>Saved 'Bob Smith'.
-     * <li>Deleted 27 items.
-     * </ul>
-     *
+     * Performs the expected action when the user clicks the save button.
      */
-    protected abstract NotificationMessage save();
+    protected abstract void save(AjaxRequestTarget target);
 
 
 }
