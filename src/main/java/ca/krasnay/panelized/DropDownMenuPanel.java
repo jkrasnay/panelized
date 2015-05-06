@@ -147,18 +147,12 @@ public class DropDownMenuPanel extends Panel {
     }
 
     public void addAction(final NamedAjaxAction action) {
-        actions.add(action);
-    }
-
-    public void addActionPanel(Panel panel) {
-
-        assert panel instanceof NamedAjaxAction : "Panel must implement NamedAjaxAction";
-
-        if (accessController != null && accessController.canAccess(panel.getClass())) {
-            addAction((NamedAjaxAction) panel);
-            panelRepeater.add(panel);
+        if (accessController != null && accessController.canAccess(action.getClass())) {
+            actions.add(action);
+            if (action instanceof Panel) {
+                panelRepeater.add((Panel) action);
+            }
         }
-
     }
 
     public void addExternalLink(IModel<String> url, String linkText) {

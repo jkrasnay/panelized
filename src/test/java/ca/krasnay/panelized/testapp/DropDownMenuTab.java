@@ -22,16 +22,7 @@ public class DropDownMenuTab extends AbstractTab {
 
         menu.addSeparator(); // confirm that leading separator is removed
 
-        menu.addAction(new NamedAjaxAction() {
-            @Override
-            public void invoke(AjaxRequestTarget target) {
-                System.out.println("Foo clicked");
-            }
-            @Override
-            public String getName(Locale locale) {
-                return "Foo";
-            }
-        });
+        menu.addAction(new ShowTestDialogActionPanel(menu.newPanelId(), null));
 
         menu.addAction(new NamedAjaxAction() {
             @Override
