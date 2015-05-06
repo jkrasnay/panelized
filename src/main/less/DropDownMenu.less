@@ -8,9 +8,8 @@
 
 .pnl-DropDownMenu-menu {
   background-color: @menu-bg;
-  border: 1px solid #e0e0e0; /* TODO parameterize? */
   border-radius: 2px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
   color: @menu-fg;
   display: none;
   list-style-type: none;
@@ -19,6 +18,12 @@
   position: absolute;
   top: 100%;
   z-index: 1000;
+}
+
+.pnl-DropDownMenu-separator {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .pnl-DropDownMenu--open .pnl-DropDownMenu-menu {

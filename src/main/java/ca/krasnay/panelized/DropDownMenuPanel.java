@@ -91,9 +91,7 @@ public class DropDownMenuPanel extends Panel {
 
     private boolean alignRight;
 
-    private Label label;
-
-    private String icon = "cogs";
+    private boolean buttonLike;
 
     private RepeatingView itemRepeater;
 
@@ -109,23 +107,7 @@ public class DropDownMenuPanel extends Panel {
      */
     private boolean pendingSeparator;
 
-    public DropDownMenuPanel(String id, AccessController accessController) {
-        this(id, accessController, false);
-    }
-
-    public DropDownMenuPanel(String id, AccessController accessController, boolean mini) {
-        this(id, (String) null, accessController);
-        label.setDefaultModel(new AbstractReadOnlyModel<String>() {
-            @Override
-            public String getObject() {
-                return String.format("<i class='fa fa-%s'></i>", icon);
-            }
-        });
-        label.setEscapeModelStrings(false);
-        label.add(new AttributeAppender("class", Model.of(mini ? "btn btn-mini" : "btn"), " "));
-    }
-
-    public DropDownMenuPanel(String id, IModel<String> name, AccessController accessController) {
+    public DropDownMenuPanel(String id, String iconName, IModel<String> textModel, AccessController accessController) {
 
         super(id);
 
@@ -133,7 +115,15 @@ public class DropDownMenuPanel extends Panel {
 
         setOutputMarkupId(true);
 
-        add(label = new Label("name", name));
+        WebMarkupContainer link = new WebMarkupContainer("link");
+        add(link);
+        link.add(new IconLabelPanel("label", iconName, textModel));
+        link.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+            @Override
+            public String getObject() {
+                return buttonLike ? "pnl-Button" : null;
+            }
+        }, " "));
 
         WebMarkupContainer menu = new WebMarkupContainer("menu");
         add(menu);
@@ -148,8 +138,12 @@ public class DropDownMenuPanel extends Panel {
         add(panelRepeater = new RepeatingView("panel"));
     }
 
-    public DropDownMenuPanel(String id, String name, AccessController acl) {
-        this(id, Model.of(name), acl);
+    public DropDownMenuPanel(String id, String iconName, AccessController acl) {
+        this(id, iconName, null, acl);
+    }
+
+    public DropDownMenuPanel(String id, IModel<String> textModel, AccessController acl) {
+        this(id, null, textModel, acl);
     }
 
     public void addAction(final NamedAjaxAction action) {
@@ -171,18 +165,6 @@ public class DropDownMenuPanel extends Panel {
         actions.add(new ExternalLinkAction(url, Model.of(linkText)));
     }
 
-//    public void addPageLink(Class<? extends Page> pageClass) {
-//        addPageLink(new PageRef(pageClass));
-//    }
-
-//    public void addPageLink(Class<? extends Page> pageClass, int entityId) {
-//        addPageLink(new PageRef(pageClass, entityId));
-//    }
-
-//    public void addPageLink(PageRef pageRef) {
-//        addPageLink(pageRef, Model.of(BasePage.getPageTitle(pageRef.getPageClass())));
-//    }
-
     public void addPageLink(final PageRef pageRef, IModel<String> linkTextModel) {
         addPageLink(pageRef, linkTextModel, null);
     }
@@ -190,25 +172,6 @@ public class DropDownMenuPanel extends Panel {
     public void addPageLink(PageRef pageRef, IModel<String> linkTextModel, String popupWindowId) {
         actions.add(new PageLinkAction(pageRef, linkTextModel, popupWindowId));
     }
-
-    /**
-     * Adds a registration link to the page-level action list. Similar to
-     * {@link #addPageLink(PageRef)}, but adds an onclick handler
-     * to show the link in a popup.
-     *
-     * @param pageRef
-     *            PageRef of the page to be displayed.
-     * @param requiredPermission
-     *            Required EventPermission for this link. We can't derive this
-     *            from the page, since RegistrationPage is @PublicAccess
-     * @param linkText
-     *            Text of the link to display, e.g. "Register Another Attendee".
-     */
-//    public void addRegistrationLink(PageRef pageRef, EventPermission requiredPermission, String linkText) {
-//        if (CurrentEffregUser.isSuperUser() || acl.hasPermission(User.getCurrentUser(), requiredPermission.getMask())) {
-//            addPageLink(pageRef, Model.of(linkText), "register");
-//        }
-//    }
 
     public void addSeparator() {
         actions.add(DummyAction.SEPARATOR);
@@ -224,7 +187,7 @@ public class DropDownMenuPanel extends Panel {
         if (pendingSeparator && itemRepeater.size() > 0) {
             WebMarkupContainer item = new WebMarkupContainer(itemRepeater.newChildId());
             itemRepeater.add(item);
-            item.add(new AttributeModifier("class", "divider"));
+            item.add(new AttributeModifier("class", "pnl-DropDownMenu-separator"));
             WebMarkupContainer link = new WebMarkupContainer("link");
             item.add(link);
             link.setVisible(false);
@@ -258,7 +221,7 @@ public class DropDownMenuPanel extends Panel {
         item.add(subMenu);
 
         // Remove class="dropdown-toggle", which interferes with the styling
-        subMenu.label.add(new AttributeModifier("class", ""));
+//        subMenu.label.add(new AttributeModifier("class", ""));
 
     }
 
@@ -439,10 +402,9 @@ public class DropDownMenuPanel extends Panel {
         return this;
     }
 
-    public DropDownMenuPanel setIcon(String icon) {
-        this.icon = icon;
+    public DropDownMenuPanel setButtonLike(boolean buttonLike) {
+        this.buttonLike = buttonLike;
         return this;
     }
-
 
 }

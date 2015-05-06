@@ -15,8 +15,9 @@ public class HomePage extends WebPage {
     public HomePage() {
 
         List<ITab> tabs = new ArrayList<>();
-        tabs.add(new DialogTab());
         tabs.add(new DataTableTab());
+        tabs.add(new DialogTab());
+        tabs.add(new DropDownMenuTab());
         tabs.add(new TabsTab());
 
         add(new TabbedPanel<ITab>("tabs", tabs));
