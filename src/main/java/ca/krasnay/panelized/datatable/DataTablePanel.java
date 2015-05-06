@@ -13,11 +13,11 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.StringValueConversionException;
+
+import ca.krasnay.panelized.BorderPanel;
 
 /**
  * Panel that displays a data table.
@@ -104,7 +104,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     private boolean paginated = true;
 
-    private DataTable<T, String> dataTable;
+    private InternalDataTablePanel<T, String> internalDataTable;
 
     private boolean reorderable;
 
@@ -124,6 +124,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
 //    private boolean urlUpdatedOnChange = true;
 
+    private BorderPanel border;
 
 
     public DataTablePanel(String id) {
@@ -131,6 +132,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
         super(id);
 
         setOutputMarkupId(true);
+
+        addPanel(border = new BorderPanel(newPanelId()));
 
         add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
@@ -226,12 +229,9 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
      * Builds the data table component. We may need to do this occasionally,
      * since filters can add columns to the result, and the only way to change
      * the columns is to re-create the data table.
-     *
-     * @param replace
-     *            If true, the data table is replaced, rather than added.
      */
     @SuppressWarnings("unchecked")
-    private void buildDataTable(boolean replace) {
+    private void buildDataTable() {
 
         List<IColumn<T, String>> allColumns = new ArrayList<IColumn<T, String>>(getColumns());
 
@@ -249,27 +249,19 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //            }
 //        }
 
-        dataTable = new DataTable<T, String>("table", allColumns, getDataProvider(), paginated ? pageSize : Integer.MAX_VALUE) {
-            @Override
-            protected Item<T> newRowItem(String id, int index, IModel<T> model) {
-                Item<T> item = super.newRowItem(id, index, model);
-                initRowContainer(item, model.getObject());
-                return item;
-            };
-        };
 
-        if (replace) {
-            replace(dataTable);
-        } else {
-            add(dataTable);
-        }
+        internalDataTable = new InternalDataTablePanel<T, String>(border.newPanelId(), this, allColumns, getDataProvider(), paginated ? pageSize : Integer.MAX_VALUE);
+        internalDataTable.setOutputMarkupId(true);
 
-        dataTable.setOutputMarkupId(true);
+        border.removeAllPanels();
+        border.addPanel(internalDataTable);
 
         ISortStateLocator<String> sortStateLocator = null;
         if (getDataProvider() instanceof ISortStateLocator) {
             sortStateLocator = (ISortStateLocator<String>) getDataProvider();
         }
+
+        DataTable<T, String> dataTable = internalDataTable.getDataTable();
 
         dataTable.addTopToolbar(new HeadersToolbar<String>(dataTable, sortStateLocator) {
             @Override
@@ -291,8 +283,6 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
             }
 
         });
-
-        dataTable.setOutputMarkupId(true);
 
         // TODO (lib) probably belongs here, but later
 //        boolean showTotals = false;
@@ -336,7 +326,11 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     @Override
     public long getCurrentPage() {
-        return dataTable.getCurrentPage();
+        return getDataTable().getCurrentPage();
+    }
+
+    private DataTable<T, String> getDataTable() {
+        return internalDataTable != null ? internalDataTable.getDataTable() : null;
     }
 
 //    public AjaxAction getFavouriteAction() {
@@ -373,7 +367,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //    }
 
     public long getPageCount() {
-        return dataTable.getPageCount();
+        return getDataTable().getPageCount();
     }
 
     public int getPageSize() {
@@ -581,7 +575,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //                initFilters(getPage().getPageParameters());
 //            }
 
-            buildDataTable(false);
+            buildDataTable();
 
             // Note: set the page *after* building the data table
             try {
@@ -678,7 +672,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
             return;
         }
 
-        dataTable.setCurrentPage(pageNum);
+        getDataTable().setCurrentPage(pageNum);
 
 //        if (target != null) {
 //            updatePage(target);
@@ -721,8 +715,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     public DataTablePanel<T> setPageSize(int pageSize) {
         this.pageSize = pageSize;
-        if (dataTable != null) {
-            dataTable.setItemsPerPage(pageSize);
+        if (getDataTable() != null) {
+            getDataTable().setItemsPerPage(pageSize);
         }
         return this;
     }
@@ -735,8 +729,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
             reorderable = false;
         }
 
-        if (dataTable != null) {
-            dataTable.setItemsPerPage(getRowsPerPage());
+        if (getDataTable() != null) {
+            getDataTable().setItemsPerPage(getRowsPerPage());
         }
 
         return this;

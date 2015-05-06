@@ -13,14 +13,14 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 
-import ca.krasnay.panelized.BorderPanel;
+import ca.krasnay.panelized.ContainerPanel;
 
 /**
  * Common base class for DataTablePanel and GroupingDataTablePanel.
  *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
-public abstract class AbstractDataTablePanel<T> extends BorderPanel {
+public abstract class AbstractDataTablePanel<T> extends ContainerPanel {
 
     private List<IColumn<T, String>> columns;
 
@@ -50,7 +50,7 @@ public abstract class AbstractDataTablePanel<T> extends BorderPanel {
     }
 
     @Override
-    protected String getCssClass() {
+    public String getCssClass() {
         return "bdr-dataTable";
     }
 
