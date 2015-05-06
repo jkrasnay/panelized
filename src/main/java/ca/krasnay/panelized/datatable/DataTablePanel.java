@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.string.StringValueConversionException;
 
 import ca.krasnay.panelized.BorderPanel;
@@ -754,6 +755,11 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     public DataTablePanel<T> setSecondarySort(String property, boolean ascending) {
         this.secondarySort = new SortParam<String>(property, ascending);
+        return this;
+    }
+
+    public DataTablePanel<T> setTitle(IModel<String> titleModel) {
+        border.setTitle(titleModel);
         return this;
     }
 
