@@ -32,6 +32,7 @@ public class FormPanel extends Panel implements PanelContainer {
                 super.onComponentTag(tag);
                 onFormComponentTag(tag);
             }
+            @Override
             protected void onValidate() {
                 FormPanel.this.onValidateInternal();
             };
@@ -72,7 +73,7 @@ public class FormPanel extends Panel implements PanelContainer {
      */
     private void onValidateInternal() {
 
-        onValidate();
+        validate();
 
         form.visitChildren(Component.class, new IVisitor<Component, Void>() {
             @Override
@@ -96,7 +97,7 @@ public class FormPanel extends Panel implements PanelContainer {
      * Note that child components implementing FormValidatable are automatically
      * called and need not be validated here.
      */
-    protected void onValidate() {
+    protected void validate() {
 
     }
 

@@ -13,7 +13,6 @@ import org.apache.wicket.core.util.string.JavaScriptUtils;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -21,8 +20,6 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.visit.IVisit;
-import org.apache.wicket.util.visit.IVisitor;
 
 /**
  * Panel that pops over the page, with a standard border with titles and a
@@ -343,8 +340,8 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         formPanel = new FormPanel(childRepeater.newChildId()) {
             @Override
-            protected void onValidate() {
-                DialogPanel.this.onValidate();
+            protected void validate() {
+                DialogPanel.this.validate();
             };
         };
         childRepeater.add(formPanel);
@@ -429,33 +426,6 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
     public boolean isShowing() {
         return isShowing;
-    }
-
-    /**
-     * Called as part of the form's validation process. By default, looks for
-     * child components implementing the {@link FormValidatable} interface and
-     * validating the returned form validators. Subclasses can also override
-     * this method and do their own form validation directly.
-     */
-    private void onValidate() {
-
-        validate();
-
-        getForm().visitChildren(Component.class, new IVisitor<Component, Void>() {
-            @Override
-            public void component(Component component, IVisit<Void> visit) {
-                if (component instanceof FormValidatable) {
-                    IFormValidator childValidator = ((FormValidatable) component).getFormValidator();
-                    if (childValidator != null) {
-                        // TODO replicate functionality from Form.validateFormValidator
-                        // (or just pass the child validator to that method)
-                        // (since its protected final, we'd have to provide a wrapper method)
-                        childValidator.validate(getForm());
-                    }
-                }
-            }
-        });
-
     }
 
     /**
