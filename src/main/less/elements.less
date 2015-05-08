@@ -21,9 +21,15 @@ a {
   vertical-align: middle;
 }
 
-select, input[type="text"], input[type="password"], input[type="file"] {
+select, input[type="text"], input[type="password"], input[type="file"], textarea {
   .control;
   border: 1px solid #ccc;
+}
+
+textarea {
+  font-family: inherit;
+  font-size: @font-size;
+  width: 100%;
 }
 
 button, input[type="submit"], .pnl-Button {
