@@ -112,7 +112,7 @@ public class ClientTabbedPanel extends Panel {
 
         StringBuilder js = new StringBuilder();
 
-        js.append(String.format("$('#%s').find('.tab-row ul li').removeClass('selected').slice(%d,%d).addClass('selected');",
+        js.append(String.format("$('#%s').find('.tab-row ul li').removeClass('selected').slice(%d,%d).addClass('selected').find('a').blur();",
                 getMarkupId(), selectedTabIndex, selectedTabIndex + 1));
 
         js.append(String.format("$('#%s').find('.tab-panel').css('display', 'none').slice(%d,%d).css('display', '');",

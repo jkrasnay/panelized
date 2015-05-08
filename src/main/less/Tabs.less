@@ -4,32 +4,51 @@
  * Wicket's TabbedPanel
  */
 
+@tab-line-color: #e0e0e0;
+
 .tab-row {
-    border-bottom: 1px solid;
+    border-bottom: 1px solid @tab-line-color;
     margin-bottom: @v-margin;
 }
 
 .tab-row ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
+.tab-row ul:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
 .tab-row li {
-    display: inline-block;
-    margin-left: 10px;
+    border: 1px solid @tab-line-color;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    float: left;
+    margin-left: 6px;
+    position: relative;
+    top: 1px;
 }
 
 .tab-row a {
     color: @color;
     display: block;
-    padding: 4px @h-padding;
+    padding: 6px @h-padding 5px;
     text-decoration: none;
 }
 
+.tab-row li.selected {
+    border-bottom: 1px solid white;
+}
+
 .tab-row li.selected a {
-    border-bottom: 2px solid;
+    background-color: white;
+    border-top: 2px solid #ccc;
     font-weight: bold;
-    padding-bottom: 2px;
+    padding-top: 4px;
 }
 
 .tab-panel {
