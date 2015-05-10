@@ -29,6 +29,8 @@ public class CellStyle extends Behavior {
 
     private Align align = Align.LEFT;
 
+    private String cssClass;
+
     private Valign valign;
 
     private boolean indent;
@@ -59,6 +61,11 @@ public class CellStyle extends Behavior {
 
     public CellStyle alignRight() {
         this.align = Align.RIGHT;
+        return this;
+    }
+
+    public CellStyle cssClass(String cssClass) {
+        this.cssClass = cssClass;
         return this;
     }
 
@@ -112,6 +119,10 @@ public class CellStyle extends Behavior {
 
         if (narrow) {
             sb.append("cell-narrow");
+        }
+
+        if (cssClass != null) {
+            sb.append(" ").append(cssClass);
         }
 
         return sb.toString();
