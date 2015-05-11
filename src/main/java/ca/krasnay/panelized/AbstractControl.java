@@ -90,9 +90,8 @@ public abstract class AbstractControl<T> extends Panel {
     /**
      * Adds the given validator to the text field embedded in this item.
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public AbstractControl addValidator(IValidator<?> validator) {
-        getFormComponent().add((IValidator) validator);
+    public AbstractControl<T> addValidator(IValidator<? super T> validator) {
+        getFormComponent().add(validator);
         return this;
     }
 
