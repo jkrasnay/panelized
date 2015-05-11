@@ -112,7 +112,7 @@ public class PageRef implements AjaxAction, Serializable {
         return this;
     }
 
-    public void throwRestartException() {
+    public void restartResponse() {
         throw new RestartResponseException(pageClass, pageParameters);
     }
 
