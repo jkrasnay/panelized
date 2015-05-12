@@ -1,6 +1,10 @@
 package ca.krasnay.panelized.datatable.sqlbuilder;
 
 import static ca.krasnay.sqlbuilder.Predicates.in;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ca.krasnay.panelized.datatable.filter.AbstractEnumFilter;
 import ca.krasnay.sqlbuilder.SelectCreator;
 
@@ -34,7 +38,11 @@ public class SelectCreatorEnumFilter<E extends Enum<E>> extends AbstractEnumFilt
 
     @Override
     public void apply(SelectCreator selectCreator) {
-        selectCreator.where(in(dbExpr, getSelectedValues()));
+        List<String> strings = new ArrayList<>();
+        for (E value : getSelectedValues()) {
+            strings.add(value.name());
+        }
+        selectCreator.where(in(dbExpr, strings));
     }
 
 
