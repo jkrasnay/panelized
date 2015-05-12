@@ -127,7 +127,6 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     private BorderPanel border;
 
-
     public DataTablePanel(String id) {
 
         super(id);
@@ -222,6 +221,18 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //        return this;
 //    }
 
+    /**
+     * Adds any desired top toolbars to the data table. Due to the way toolbars
+     * are implemented in Wicket, toolbars must be added by overriding this
+     * method so that we have access to the DataTable in the toolbar
+     * constructor.
+     *
+     * <p>See {@link ToolbarPanel} for an AbstractToolbar implementation in the
+     * Panelized style.
+     */
+    protected void addTopToolbars(DataTable<T, String> dataTable) {
+    }
+
     private String allocateColumnAlias() {
         return "c" + columnAliasIndex++;
     }
@@ -263,6 +274,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
         }
 
         DataTable<T, String> dataTable = internalDataTable.getDataTable();
+
+        addTopToolbars(dataTable);
 
         dataTable.addTopToolbar(new HeadersToolbar<String>(dataTable, sortStateLocator) {
             @Override

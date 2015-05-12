@@ -1,4 +1,4 @@
-package ca.krasnay.panelized.datatable;
+package ca.krasnay.panelized.datatable.sqlbuilder;
 
 import java.util.Date;
 

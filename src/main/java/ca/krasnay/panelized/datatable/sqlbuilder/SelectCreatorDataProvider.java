@@ -1,8 +1,9 @@
-package ca.krasnay.panelized.datatable;
+package ca.krasnay.panelized.datatable.sqlbuilder;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,8 @@ import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import ca.krasnay.panelized.datatable.filter.DataTableFilter;
+import ca.krasnay.panelized.datatable.filter.FilterableDataProvider;
 import ca.krasnay.sqlbuilder.Dialect;
 import ca.krasnay.sqlbuilder.PostgresqlDialect;
 import ca.krasnay.sqlbuilder.SelectCreator;
@@ -30,7 +33,7 @@ import ca.krasnay.sqlbuilder.UnionSelectCreator;
  *
  * @author John Krasnay <john@krasnay.ca>
  */
-public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> {
+public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider {
 
     private static final Logger log = LoggerFactory.getLogger(SelectCreatorDataProvider.class);
 
@@ -48,7 +51,7 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
 
     private String uniqueColumn;
 
-    private List<SelectCreatorFilter> filters = new ArrayList<SelectCreatorFilter>();
+    private List<DataTableFilter> filters = new ArrayList<DataTableFilter>();
 
     /**
      * Constructor.
@@ -73,9 +76,12 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
         this.dataSource = dataSource;
     }
 
-    public SelectCreatorDataProvider addFilter(SelectCreatorFilter filter) {
-        filters.add(filter);
-        return this;
+    public void addFilter(DataTableFilter filter) {
+        if (filter instanceof SelectCreatorFilter) {
+            filters.add(filter);
+        } else {
+            throw new RuntimeException("Filters added to SelectCreatorDataProvider must implement SelectCreatorFilter");
+        }
     }
 
     /**
@@ -129,8 +135,8 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
     }
 
     private void applyFilters(SelectCreator creator) {
-        for (SelectCreatorFilter filter : filters) {
-            filter.apply(creator);
+        for (DataTableFilter filter : filters) {
+            ((SelectCreatorFilter) filter).apply(creator);
         }
     }
 
@@ -196,6 +202,11 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
         return dataSource;
     }
 
+    @Override
+    public List<DataTableFilter> getFilters() {
+        return Collections.unmodifiableList(filters);
+    }
+
     public String getQuickFilterString() {
         return quickFilterString;
     }
@@ -255,9 +266,8 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
         return new Model<RowMap>(object);
     }
 
-    public SelectCreatorDataProvider removeFilter(SelectCreatorFilter filter) {
+    public void removeFilter(DataTableFilter filter) {
         filters.remove(filter);
-        return this;
     }
 
     public void setQuickFilterString(String s) {

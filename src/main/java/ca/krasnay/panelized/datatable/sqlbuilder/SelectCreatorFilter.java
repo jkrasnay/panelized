@@ -1,6 +1,4 @@
-package ca.krasnay.panelized.datatable;
-
-import java.io.Serializable;
+package ca.krasnay.panelized.datatable.sqlbuilder;
 
 import ca.krasnay.sqlbuilder.SelectCreator;
 
@@ -11,7 +9,7 @@ import ca.krasnay.sqlbuilder.SelectCreator;
  *
  * @author John Krasnay
  */
-public interface SelectCreatorFilter extends Serializable {
+public interface SelectCreatorFilter {
 
     /**
      * Applies the filter to a {@link SelectCreator}.

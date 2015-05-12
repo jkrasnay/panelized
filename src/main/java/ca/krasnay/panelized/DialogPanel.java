@@ -77,7 +77,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
     }
 
 
-    public class DialogFrame implements Serializable {
+    public class DialogFrame implements PanelContainer, Serializable {
 
         public void addBackButton(final AjaxAction ajaxAction) {
             addLeftButton(new AjaxButton(newButtonId(), Model.of("Back")) {
@@ -145,8 +145,9 @@ public class DialogPanel extends Panel implements IHeaderContributor {
             addCloseButton("Close");
         }
 
-        public void addPanel(Panel item) {
+        public PanelContainer addPanel(Component item) {
             formItems.addPanel(item);
+            return this;
         }
 
 //        public void addExportButton(ExportAction exportAction) {
@@ -266,6 +267,11 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         public String newPanelId() {
             return formItems.newPanelId();
+        }
+
+        @Override
+        public void removeAllPanels() {
+            formItems.removeAllPanels();
         }
 
     };
@@ -455,7 +461,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
      * CompoundPropertyModel. Typically this is used so you can add form fields
      * that are wired to model object fields by their IDs.
      */
-    protected void setModel(Serializable modelObject) {
+    public void setModel(Serializable modelObject) {
         setDefaultModel(new CompoundPropertyModel<Object>(modelObject));
     }
 
@@ -480,6 +486,10 @@ public class DialogPanel extends Panel implements IHeaderContributor {
      * in any data required to build the dialog.
      */
     public final void show(AjaxRequestTarget target) {
+
+        if (getParent() == null) {
+            throw new RuntimeException("DialogPanel has not been added to a parent");
+        }
 
         getForm().setEnabled(true);
 
