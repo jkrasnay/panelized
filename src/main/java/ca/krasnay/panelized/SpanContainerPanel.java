@@ -20,7 +20,7 @@ public class SpanContainerPanel extends Panel implements PanelContainer {
 
     private String cssClass;
 
-    private boolean renderDivs = true;
+    private String itemCssClass;
 
     public SpanContainerPanel(String id) {
         this(id, (IModel<?>) null);
@@ -60,12 +60,24 @@ public class SpanContainerPanel extends Panel implements PanelContainer {
     }
 
     public SpanContainerPanel addPanel(Component panel) {
+
+        panel.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
+            @Override
+            public String getObject() {
+                return getItemCssClass();
+            }
+        }, " "));
+
         panelRepeater.add(panel);
         return this;
     }
 
     public String getCssClass() {
         return cssClass;
+    }
+
+    public String getItemCssClass() {
+        return itemCssClass;
     }
 
     public String newPanelId() {
@@ -79,6 +91,11 @@ public class SpanContainerPanel extends Panel implements PanelContainer {
 
     public SpanContainerPanel setCssClass(String cssClass) {
         this.cssClass = cssClass;
+        return this;
+    }
+
+    public SpanContainerPanel setItemCssClass(String itemCssClass) {
+        this.itemCssClass = itemCssClass;
         return this;
     }
 

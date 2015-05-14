@@ -25,7 +25,9 @@
 /* Toolbars */
 
 .pnl-ToolbarPanel {
-  padding: 0 @h-padding;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 5px 0;
 }
 
 .pnl-ToolbarPanel:after {
@@ -38,8 +40,24 @@
   float: left;
 }
 
+.pnl-ToolbarPanel-leftItem {
+  /* if left as inline, WebKit renders these a little too wide, at least when we tried with inline-block children */
+  display: inline-block;
+
+  padding-left: @h-padding;
+  vertical-align: middle;
+}
+
 .pnl-ToolbarPanel-right {
   float: right;
+}
+
+.pnl-ToolbarPanel-rightItem {
+  /* if left as inline, WebKit renders these a little too wide, at least when we tried with inline-block children */
+  display: inline-block;
+
+  padding-right: @h-padding;
+  vertical-align: middle;
 }
 
 

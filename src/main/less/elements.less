@@ -16,7 +16,7 @@ a {
   font-size: @font-size;
   //height: @control-height;
   //line-height: @control-height;
-  padding: 4px 6px;
+  padding: @control-v-padding 6px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -47,7 +47,7 @@ button, input[type="submit"], .pnl-Button {
   border-color: #cccccc #cccccc #b3b3b3;
   border-radius: 2px;
   border-style: solid;
-  border-width: 1px;
+  border-width: @control-v-border;
   text-decoration: none;
   &:hover {
     background-color: #e6e6e6;
