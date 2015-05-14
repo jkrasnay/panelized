@@ -78,7 +78,7 @@ public class DataTableTab extends AbstractTab {
 
 
         List<IColumn<Widget, String>> columns = new ArrayList<>();
-        columns.add(new PropertyColumn<Widget, String>(Model.of("Name"), "name"));
+        columns.add(new PropertyColumn<Widget, String>(Model.of("Name"), "name", "name"));
         columns.add(new AbstractColumn<Widget, String>(Model.of("Color")) {
             @Override
             public void populateItem(Item<ICellPopulator<Widget>> cellItem, String componentId, IModel<Widget> rowModel) {

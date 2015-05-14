@@ -247,21 +247,6 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
         List<IColumn<T, String>> allColumns = new ArrayList<IColumn<T, String>>(getColumns());
 
-//        if (commentActionPanel != null) {
-//            allColumns.add(0, new CommentColumn(commentActionPanel.getCommentColumnName()));
-//        }
-
-//        if (hasTools()) {
-//            allColumns.add(0, new ToolsColumn(this));
-//        }
-
-//        for (Filter filter : filters) {
-//            if (filter instanceof ColumnContributor) {
-//                allColumns.addAll(((ColumnContributor<T>) filter).getColumns());
-//            }
-//        }
-
-
         internalDataTable = new InternalDataTablePanel<T, String>(border.newPanelId(), this, allColumns, getDataProvider(), paginated ? pageSize : Integer.MAX_VALUE);
         internalDataTable.setOutputMarkupId(true);
 
@@ -284,7 +269,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
                     @Override
                     protected void onAjaxClick(AjaxRequestTarget target) {
                         // TODO (lib) need some sort of callback, so the page URL can be updated by the app
-//                        updatePage(target);
+                        //target.add(dataTable); // Seems to make our headers repeat (but not others?!)
+                        target.add(DataTablePanel.this);
                     }
 
                     @Override
@@ -309,9 +295,6 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //        if (showTotals) {
 //            dataTable.addBottomToolbar(new TotalsToolbar<T>(dataTable));
 //        }
-
-        // TODO (lib) belongs in the filter control
-//        lastFilterColumnState = buildFilterColumnState();
 
     }
 

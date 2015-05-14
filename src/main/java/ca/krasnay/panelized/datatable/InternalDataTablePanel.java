@@ -21,7 +21,9 @@ public class InternalDataTablePanel<T, S> extends Panel {
     private DataTable<T, S> dataTable;
 
     public InternalDataTablePanel(String id, final DataTablePanel<T> dataTablePanel, List<? extends IColumn<T, S>> columns, IDataProvider<T> dataProvider, long rowsPerPage) {
+
         super(id);
+
         add(dataTable = new DataTable<T, S>("table", columns, dataProvider, rowsPerPage) {
             @Override
             protected Item<T> newRowItem(String id, int index, IModel<T> model) {
@@ -47,6 +49,10 @@ public class InternalDataTablePanel<T, S> extends Panel {
                 return item;
             }
         });
+
+        dataTable.setOutputMarkupId(true);
+
+
     }
 
     public DataTable<T, S> getDataTable() {
