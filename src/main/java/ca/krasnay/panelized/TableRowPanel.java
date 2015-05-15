@@ -1,5 +1,6 @@
 package ca.krasnay.panelized;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.IModel;
@@ -14,12 +15,12 @@ public class TableRowPanel extends Panel {
         add(cellRepeater = new RepeatingView("cell"));
     }
 
-    public TableRowPanel addCell(Panel cell) {
+    public TableRowPanel addCell(Component cell) {
         cellRepeater.add(cell);
         return this;
     }
 
-    public TableRowPanel addCell(Panel cell, CellStyle style) {
+    public TableRowPanel addCell(Component cell, CellStyle style) {
         cellRepeater.add(cell.add(style));
         return this;
     }

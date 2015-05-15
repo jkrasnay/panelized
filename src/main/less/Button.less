@@ -1,0 +1,68 @@
+
+button, input[type="submit"], .pnl-Button {
+  .control;
+  /*background-color: #f5f5f5;*/
+  /*background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);*/
+  /*background-repeat: repeat-x; */
+  background-color: white;
+  border-color: #ccc;
+  border-radius: 2px;
+  border-style: solid;
+  border-width: @control-v-border;
+  text-decoration: none;
+  &:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    /*background-position: 0 -15px;*/
+    /*color: #333333;*/
+    text-decoration: none;
+    transition: background-position 0.1s linear 0s;
+  }
+  &:active {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    /*background-image: none;*/
+  }
+}
+
+.pnl-Button--default {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  &:hover {
+    background-color: #286090;
+    border-color: #204d74;
+  }
+  &:active {
+    background-color: #286090;
+    border-color: #204d74;
+  }
+}
+
+.pnl-Button--hover {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.pnl-Button.is-disabled {
+  opacity: 0.5;
+  &:hover {
+    background-color: white;
+    border-color: #ccc;
+  }
+}
+
+.pnl-Button--default.is-disabled:hover {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.pnl-Button--hover.is-disabled:hover {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.pnl-Link.is-disabled {
+  opacity: 0.5;
+}
+
