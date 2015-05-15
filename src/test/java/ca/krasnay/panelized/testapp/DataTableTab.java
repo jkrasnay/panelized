@@ -21,6 +21,7 @@ import ca.krasnay.panelized.DummyAccessController;
 import ca.krasnay.panelized.EnumUtils;
 import ca.krasnay.panelized.RefreshAction;
 import ca.krasnay.panelized.ToolStyle;
+import ca.krasnay.panelized.datatable.CurrentPagePanel;
 import ca.krasnay.panelized.datatable.DataTablePanel;
 import ca.krasnay.panelized.datatable.PageButtonsPanel;
 import ca.krasnay.panelized.datatable.ToolbarPanel;
@@ -62,6 +63,7 @@ public class DataTableTab extends AbstractTab {
                 toolbar.addLeftItem(addFilterMenu);
                 toolbar.addLeftItem(filterStatusPanel);
 
+                toolbar.addRightItem(new CurrentPagePanel(toolbar.newRightItemId(), this));
                 toolbar.addRightItem(new PageButtonsPanel(toolbar.newRightItemId(), this));
 
                 dataTable.addTopToolbar(toolbar);
