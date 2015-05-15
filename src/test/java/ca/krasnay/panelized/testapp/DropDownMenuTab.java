@@ -11,6 +11,7 @@ import ca.krasnay.panelized.AccessController;
 import ca.krasnay.panelized.ContainerPanel;
 import ca.krasnay.panelized.DropDownMenuPanel;
 import ca.krasnay.panelized.NamedAjaxAction;
+import ca.krasnay.panelized.ToolStyle;
 
 public class DropDownMenuTab extends AbstractTab {
 
@@ -73,9 +74,9 @@ public class DropDownMenuTab extends AbstractTab {
         container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), Model.of("Menu"), allAccess)));
         container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), "cog", Model.of("Menu"), allAccess)));
 
-        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), "cog", allAccess).setButtonLike(true)));
-        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), Model.of("Menu"), allAccess).setButtonLike(true)));
-        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), "cog", Model.of("Menu"), allAccess).setButtonLike(true)));
+        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), "cog", allAccess).setStyle(ToolStyle.BUTTON)));
+        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), Model.of("Menu"), allAccess).setStyle(ToolStyle.BUTTON)));
+        container.addPanel(buildMenu(new DropDownMenuPanel(container.newPanelId(), "cog", Model.of("Menu"), allAccess).setStyle(ToolStyle.BUTTON)));
 
 
         return container;

@@ -91,7 +91,7 @@ public class DropDownMenuPanel extends Panel {
 
     private boolean alignRight;
 
-    private boolean buttonLike;
+    private ToolStyle style = ToolStyle.LINK;
 
     private RepeatingView itemRepeater;
 
@@ -117,11 +117,20 @@ public class DropDownMenuPanel extends Panel {
 
         WebMarkupContainer link = new WebMarkupContainer("link");
         add(link);
+
         link.add(new IconLabelPanel("label", iconName, textModel));
+
         link.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return buttonLike ? "pnl-Button" : null;
+                switch (style) {
+                case BUTTON:
+                    return "pnl-Button";
+                case HOVER_BUTTON:
+                    return "pnl-Button pnl-Button--hover";
+                default:
+                    return "pnl-Link";
+                }
             }
         }, " "));
 
@@ -396,8 +405,8 @@ public class DropDownMenuPanel extends Panel {
         return this;
     }
 
-    public DropDownMenuPanel setButtonLike(boolean buttonLike) {
-        this.buttonLike = buttonLike;
+    public DropDownMenuPanel setStyle(ToolStyle style) {
+        this.style = style;
         return this;
     }
 

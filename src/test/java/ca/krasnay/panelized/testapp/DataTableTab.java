@@ -20,6 +20,7 @@ import ca.krasnay.panelized.DropDownMenuPanel;
 import ca.krasnay.panelized.DummyAccessController;
 import ca.krasnay.panelized.EnumUtils;
 import ca.krasnay.panelized.RefreshAction;
+import ca.krasnay.panelized.ToolStyle;
 import ca.krasnay.panelized.datatable.DataTablePanel;
 import ca.krasnay.panelized.datatable.PageButtonsPanel;
 import ca.krasnay.panelized.datatable.ToolbarPanel;
@@ -52,7 +53,7 @@ public class DataTableTab extends AbstractTab {
                 FilterStatusPanel filterStatusPanel = new FilterStatusPanel(toolbar.newLeftItemId(), this);
 
                 DropDownMenuPanel addFilterMenu = new DropDownMenuPanel(toolbar.newLeftItemId(), "filter", new DummyAccessController());
-                addFilterMenu.setButtonLike(true);
+                addFilterMenu.setStyle(ToolStyle.HOVER_BUTTON);
 
                 for (FilterFactory factory : filterFactories) {
                     addFilterMenu.addAction(new AddFilterActionPanel(addFilterMenu.newPanelId(), this, factory, new RefreshAction(filterStatusPanel)));
