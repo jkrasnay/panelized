@@ -7,7 +7,10 @@ public class Widget implements Serializable {
     public enum Color {
         RED,
         YELLOW,
-        BLUE;
+        BLUE,
+        ORANGE,
+        GREEN,
+        PURPLE;
     }
 
     private int id;

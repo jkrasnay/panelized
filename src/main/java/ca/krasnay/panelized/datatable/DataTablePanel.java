@@ -16,7 +16,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.string.StringValueConversionException;
 
 import ca.krasnay.panelized.BorderPanel;
 
@@ -100,6 +99,8 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //     * was built.
 //     */
 //    private String lastFilterColumnState;
+
+    private long currentPage = 0;
 
     private int pageSize = DEFAULT_PAGE_SIZE;
 
@@ -276,13 +277,15 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
                     @Override
                     protected void onSortChanged() {
                         super.onSortChanged();
-                        getTable().setCurrentPage(0);
+                        DataTablePanel.this.setCurrentPage(null, 0);
                     }
 
                 };
             }
 
         });
+
+        dataTable.setCurrentPage(currentPage);
 
         // TODO (lib) probably belongs here, but later
 //        boolean showTotals = false;
@@ -323,7 +326,7 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 
     @Override
     public long getCurrentPage() {
-        return getDataTable().getCurrentPage();
+        return currentPage;
     }
 
     private DataTable<T, String> getDataTable() {
@@ -575,10 +578,10 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
             buildDataTable();
 
             // Note: set the page *after* building the data table
-            try {
-                setCurrentPage(null, getPage().getPageParameters().get(PARAM_PAGE).toInt() - 1);
-            } catch (StringValueConversionException e) {
-            }
+//            try {
+//                setCurrentPage(null, getPage().getPageParameters().get(PARAM_PAGE).toInt() - 1);
+//            } catch (StringValueConversionException e) {
+//            }
 
 
             // TODO (lib) added by application
@@ -663,13 +666,14 @@ public class DataTablePanel<T> extends AbstractDataTablePanel<T> implements IHea
 //
 //    }
 
-    public void setCurrentPage(AjaxRequestTarget target, long pageNum) {
+    public void setCurrentPage(AjaxRequestTarget target, long currentPage) {
 
-        if (pageNum < 0 || pageNum > getPageCount() - 1) {
+        if (currentPage < 0 || currentPage > getPageCount() - 1) {
             return;
         }
 
-        getDataTable().setCurrentPage(pageNum);
+        this.currentPage = currentPage;
+        getDataTable().setCurrentPage(currentPage);
 
 //        if (target != null) {
 //            updatePage(target);
