@@ -42,8 +42,18 @@ public abstract class SearchFieldPanel extends Panel {
         ajaxBehavior = new AbstractDefaultAjaxBehavior() {
             @Override
             protected void respond(AjaxRequestTarget target) {
+
                 IRequestParameters req = RequestCycle.get().getRequest().getRequestParameters();
                 searchString = req.getParameterValue("searchString").toString();
+
+                if (searchString != null) {
+                    searchString = searchString.trim();
+                }
+
+                if ("".equals(searchString)) {
+                    searchString = null;
+                }
+
                 onSearch(target, searchString);
             }
         };

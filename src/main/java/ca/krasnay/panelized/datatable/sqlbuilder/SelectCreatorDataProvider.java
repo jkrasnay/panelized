@@ -1,5 +1,7 @@
 package ca.krasnay.panelized.datatable.sqlbuilder;
 
+import static ca.krasnay.sqlbuilder.Predicates.or;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,10 +24,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import ca.krasnay.panelized.datatable.filter.DataTableFilter;
 import ca.krasnay.panelized.datatable.filter.FilterableDataProvider;
+import ca.krasnay.panelized.datatable.filter.QuickFilterDataProvider;
 import ca.krasnay.sqlbuilder.Dialect;
 import ca.krasnay.sqlbuilder.PostgresqlDialect;
+import ca.krasnay.sqlbuilder.Predicate;
 import ca.krasnay.sqlbuilder.SelectCreator;
-import ca.krasnay.sqlbuilder.UnionSelectCreator;
 
 /**
  * DataProvider built around the SelectCreator class. Provides sorting and
@@ -33,7 +36,7 @@ import ca.krasnay.sqlbuilder.UnionSelectCreator;
  *
  * @author John Krasnay <john@krasnay.ca>
  */
-public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider {
+public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider, QuickFilterDataProvider {
 
     private static final Logger log = LoggerFactory.getLogger(SelectCreatorDataProvider.class);
 
@@ -41,7 +44,7 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
 
     private DataSource dataSource;
 
-    private List<String> quickFilters = new ArrayList<String>();
+    private List<SelectCreatorQuickFilter> quickFilters = new ArrayList<>();
 
     private String quickFilterString;
 
@@ -84,54 +87,8 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
         }
     }
 
-    /**
-     * Adds a "quick filter" to this data provider. The given expression is a
-     * boolean SQL expression that implements the filter. The filter
-     * may contain one of the following substitution strings:
-     *
-     * <ul>
-     * <li><tt>:filter</tt> - The text of the filter string entered by the user.
-     * <li><tt>:prefixFilter</tt> - The text of the filter string entered by the user,
-     * with '%' appended. This can be used to find strings that start with
-     * the entered user string.
-     * <li><tt>:wordPrefixFilter</tt> - Like <tt>:prefix</tt>, but with '% ' pre-pended,
-     * such that it can be used to match words within a value.
-     * </ul>
-     *
-     * Note that all substitution strings are converted to lowercase.
-     *
-     * Some examples are as follows:
-     *
-     * <li><tt>lower(name) like :prefixFilter</tt> - Matches any row where the name
-     * column begins with the filter text.
-     * <li><tt>lower(name) like :prefixFilter or lower(name) like :wordPrefixFilter</tt> -
-     * Matches any row where the name column contains a word that starts with
-     * the filter text. Note that addWordFilter method is a convenience method
-     * that implements this kind of filter.
-     * <li><tt>id = :filter</tt> - Matches rows where the id exactly matches
-     * the entered value.
-     * </ul>
-     *
-     * @param expr
-     * @return
-     */
-    public SelectCreatorDataProvider addQuickFilter(String expr) {
-        quickFilters.add(expr);
-        return this;
-    }
-
-    /**
-     * Convenience method that sets up a word prefix filter given a column name.
-     * For example, given the column <tt>fullName</tt>, this method adds the
-     * following quick filter:
-     *
-     * <pre>lower(fullName) like :prefixFilter or lower(fullName) like :wordPrefixFilter</pre>
-     */
-    public SelectCreatorDataProvider addWordFilter(String columnName) {
-        quickFilters.add(
-                String.format("lower(%s) like :prefixFilter or lower(%s) like :wordPrefixFilter",
-                        columnName, columnName));
-        return this;
+    public void addQuickFilter(SelectCreatorQuickFilter quickFilter) {
+        quickFilters.add(quickFilter);
     }
 
     private void applyFilters(SelectCreator creator) {
@@ -142,34 +99,16 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
 
     private void applyQuickFilters(SelectCreator creator) {
 
-        if (hasQuickFilter()) {
+        if (hasQuickFilters() && quickFilterString != null) {
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("(");
+            List<Predicate> predicates = new ArrayList<>();
 
-            boolean first = true;
-            for (String quickFilter : quickFilters) {
-                if (!first) {
-                    sb.append(" or ");
-                }
-                sb.append(quickFilter);
-                first = false;
-            }
-            sb.append(")");
-
-            String whereClause = sb.toString();
-
-            creator.where(whereClause);
-
-            for (UnionSelectCreator usc : creator.getUnions()) {
-                usc.where(whereClause);
+            for (SelectCreatorQuickFilter quickFilter : quickFilters) {
+                predicates.add(quickFilter.createPredicate(quickFilterString));
             }
 
-            String filterString = quickFilterString.toLowerCase();
+            creator.where(or(predicates));
 
-            creator.setParameter("filter", filterString);
-            creator.setParameter("prefixFilter", filterString.toLowerCase() + "%");
-            creator.setParameter("wordPrefixFilter", "% " + filterString.toLowerCase() + "%");
         }
     }
 
@@ -217,14 +156,6 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
 
     public SortParam<String> getSecondarySort() {
             return secondarySort;
-    }
-
-    private boolean hasQuickFilter() {
-        return quickFilters != null && quickFilters.size() > 0 && quickFilterString != null;
-    }
-
-    public boolean isFiltered() {
-        return hasQuickFilter();
     }
 
     @SuppressWarnings("unchecked")
