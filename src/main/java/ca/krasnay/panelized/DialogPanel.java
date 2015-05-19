@@ -109,7 +109,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
         public void addButton(Button button) {
 
             if (buttonsPanel.isEmpty()) {
-                button.add(new AttributeAppender("class", Model.of("btn-primary"), " "));
+                button.add(new AttributeAppender("class", Model.of("pnl-Button--default"), " "));
             }
 
             buttonsPanel.addButton(button);
