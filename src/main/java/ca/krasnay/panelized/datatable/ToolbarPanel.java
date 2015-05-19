@@ -1,9 +1,6 @@
 package ca.krasnay.panelized.datatable;
 
-import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractToolbar;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
 
 import ca.krasnay.panelized.SpanContainerPanel;
 
@@ -13,19 +10,15 @@ import ca.krasnay.panelized.SpanContainerPanel;
  *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
-public class ToolbarPanel extends AbstractToolbar {
+public class ToolbarPanel extends Panel {
 
     private SpanContainerPanel leftItems;
 
     private SpanContainerPanel rightItems;
 
-    public ToolbarPanel(DataTable<?, ?> table) {
-        this(null, table);
-    }
+    public ToolbarPanel(String id) {
 
-    public ToolbarPanel(IModel<?> model, DataTable<?, ?> table) {
-
-        super(model, table);
+        super(id);
 
         add(leftItems = new SpanContainerPanel("left").setItemCssClass("pnl-ToolbarPanel-leftItem"));
         add(rightItems = new SpanContainerPanel("right").setItemCssClass("pnl-ToolbarPanel-rightItem"));

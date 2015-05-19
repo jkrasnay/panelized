@@ -18,11 +18,15 @@ import org.apache.wicket.markup.repeater.data.ListDataProvider;
  *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
-public class FilterableListDataProvider<T extends Serializable> extends ListDataProvider<T> implements FilterableDataProvider, ISortableDataProvider<T, String> {
+public class FilterableListDataProvider<T extends Serializable> extends ListDataProvider<T> implements FilterableDataProvider, ISortableDataProvider<T, String>, QuickFilterDataProvider {
 
     private List<DataTableFilter> filters = new ArrayList<>();
 
     private final SingleSortState<String> sortState = new SingleSortState<String>();
+
+    private List<ListQuickFilter> quickFilters = new ArrayList<>();
+
+    private String quickFilterString;
 
     public FilterableListDataProvider() {
         this(null);
@@ -41,6 +45,10 @@ public class FilterableListDataProvider<T extends Serializable> extends ListData
         }
     }
 
+    public void addQuickFilter(ListQuickFilter<T> filter) {
+        quickFilters.add(filter);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected final List<T> getData() {
@@ -55,6 +63,15 @@ public class FilterableListDataProvider<T extends Serializable> extends ListData
                 if (!((ListFilter<T>) filter).include(row)) {
                     include = false;
                     break;
+                }
+            }
+
+            if (include && quickFilterString != null) {
+                for (ListQuickFilter filter : quickFilters) {
+                    if (!filter.include(row, quickFilterString)) {
+                        include = false;
+                        break;
+                    }
                 }
             }
 
@@ -97,6 +114,21 @@ public class FilterableListDataProvider<T extends Serializable> extends ListData
 
     public void setSort(String property, SortOrder order){
         sortState.setPropertySortOrder(property, order);
+    }
+
+    @Override
+    public String getQuickFilterString() {
+        return quickFilterString;
+    }
+
+    @Override
+    public boolean hasQuickFilters() {
+        return quickFilters.size() > 0;
+    }
+
+    @Override
+    public void setQuickFilterString(String s) {
+        this.quickFilterString = s;
     }
 
 

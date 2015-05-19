@@ -10,17 +10,21 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 
-import ca.krasnay.panelized.ContainerPanel;
+import ca.krasnay.panelized.PanelContainer;
 
 /**
  * Common base class for DataTablePanel and GroupingDataTablePanel.
  *
+ * TODO (lib) merge down into DataTablePanel. Since we've moved out all the action
+ * and toolbar stuff, this is no longer necessary (is it? Maybe for the row ID stuff to support actions...)
+ *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
-public abstract class AbstractDataTablePanel<T> extends ContainerPanel {
+public abstract class AbstractDataTablePanel<T> extends Panel implements IHeaderContributor, PanelContainer {
 
     private List<IColumn<T, String>> columns;
 
@@ -47,11 +51,6 @@ public abstract class AbstractDataTablePanel<T> extends ContainerPanel {
      */
     public void addHeaderContributor(IHeaderContributor headerContributor) {
         headerContributors.add(headerContributor);
-    }
-
-    @Override
-    public String getCssClass() {
-        return "bdr-dataTable";
     }
 
     public abstract long getCurrentPage();

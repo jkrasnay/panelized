@@ -17,7 +17,11 @@ public class CurrentPagePanel extends TextPanel {
 
         super(id);
 
+        setOutputMarkupId(true);
+
         this.dataTablePanel = dataTablePanel;
+
+        dataTablePanel.addForRefresh(this);
 
         setDefaultModel(new AbstractReadOnlyModel<String>() {
             @Override

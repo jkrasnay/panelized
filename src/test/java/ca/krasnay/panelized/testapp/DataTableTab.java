@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
-import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
@@ -29,6 +28,8 @@ import ca.krasnay.panelized.datatable.filter.AddFilterActionPanel;
 import ca.krasnay.panelized.datatable.filter.FilterFactory;
 import ca.krasnay.panelized.datatable.filter.FilterStatusPanel;
 import ca.krasnay.panelized.datatable.filter.FilterableListDataProvider;
+import ca.krasnay.panelized.datatable.filter.PrefixQuickFilter;
+import ca.krasnay.panelized.datatable.filter.QuickFilterPanel;
 import ca.krasnay.panelized.testapp.Widget.Color;
 
 public class DataTableTab extends AbstractTab {
@@ -45,32 +46,37 @@ public class DataTableTab extends AbstractTab {
         final List<FilterFactory> filterFactories = new ArrayList<>();
         filterFactories.add(new WidgetColorFilterFactory());
 
-        DataTablePanel<Widget> dataTablePanel = new DataTablePanel<Widget>(container.newPanelId()) {
-            @Override
-            protected void addTopToolbars(DataTable<Widget, String> dataTable) {
-
-                ToolbarPanel toolbar = new ToolbarPanel(dataTable);
-
-                FilterStatusPanel filterStatusPanel = new FilterStatusPanel(toolbar.newLeftItemId(), this);
-
-                DropDownMenuPanel addFilterMenu = new DropDownMenuPanel(toolbar.newLeftItemId(), "filter", new DummyAccessController());
-                addFilterMenu.setStyle(ToolStyle.HOVER_BUTTON);
-
-                for (FilterFactory factory : filterFactories) {
-                    addFilterMenu.addAction(new AddFilterActionPanel(addFilterMenu.newPanelId(), this, factory, new RefreshAction(filterStatusPanel)));
-                }
-
-                toolbar.addLeftItem(addFilterMenu);
-                toolbar.addLeftItem(filterStatusPanel);
-
-                toolbar.addRightItem(new CurrentPagePanel(toolbar.newRightItemId(), this));
-                toolbar.addRightItem(new PageButtonsPanel(toolbar.newRightItemId(), this));
-
-                dataTable.addTopToolbar(toolbar);
-
-            }
-        };
+        DataTablePanel<Widget> dataTablePanel = new DataTablePanel<Widget>(container.newPanelId());
         container.addPanel(dataTablePanel);
+
+        //
+        // Toolbars
+        //
+
+        ToolbarPanel toolbar = new ToolbarPanel(dataTablePanel.newTopToolbarId());
+
+        FilterStatusPanel filterStatusPanel = new FilterStatusPanel(toolbar.newLeftItemId(), dataTablePanel);
+
+        DropDownMenuPanel addFilterMenu = new DropDownMenuPanel(toolbar.newLeftItemId(), "filter", new DummyAccessController());
+        addFilterMenu.setStyle(ToolStyle.HOVER_BUTTON);
+
+        for (FilterFactory factory : filterFactories) {
+            addFilterMenu.addAction(new AddFilterActionPanel(addFilterMenu.newPanelId(), dataTablePanel, factory, new RefreshAction(filterStatusPanel)));
+        }
+
+        toolbar.addLeftItem(new QuickFilterPanel(toolbar.newLeftItemId(), dataTablePanel).setSearchDelay(500));
+        toolbar.addLeftItem(addFilterMenu);
+        toolbar.addLeftItem(filterStatusPanel);
+
+        toolbar.addRightItem(new CurrentPagePanel(toolbar.newRightItemId(), dataTablePanel));
+        toolbar.addRightItem(new PageButtonsPanel(toolbar.newRightItemId(), dataTablePanel));
+
+        dataTablePanel.addTopToolbar(toolbar);
+
+
+        //
+        // Data Provider
+        //
 
         List<Widget> widgets = new ArrayList<>();
         widgets.add(new Widget(1, "Macintosh Apple", Widget.Color.RED));
@@ -94,7 +100,12 @@ public class DataTableTab extends AbstractTab {
 
         dataTablePanel.setDataProvider(dataProvider);
 
+        dataProvider.addQuickFilter(new PrefixQuickFilter<Widget>("name"));
 
+
+        //
+        // Columns
+        //
 
         List<IColumn<Widget, String>> columns = new ArrayList<>();
         columns.add(new PropertyColumn<Widget, String>(Model.of("Name"), "name", "name"));

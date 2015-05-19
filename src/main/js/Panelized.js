@@ -9,6 +9,7 @@ function init() {
 module.exports = {
   init: init,
   DataTable: require('./DataTable'),
-  Modal: require('./Modal')
+  Modal: require('./Modal'),
+  SearchField: require('./SearchField')
 };
 

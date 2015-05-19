@@ -22,11 +22,12 @@ public class PageButtonsPanel extends SpanContainerPanel {
 
         this.dataTablePanel = dataTablePanel;
 
+        dataTablePanel.addForRefresh(this);
+
         AjaxAction prevAction = new AjaxAction() {
             @Override
             public void invoke(AjaxRequestTarget target) {
                 getDataTablePanel().previousPage(target);
-                target.add(getDataTablePanel());
             }
         };
 
@@ -41,7 +42,6 @@ public class PageButtonsPanel extends SpanContainerPanel {
             @Override
             public void invoke(AjaxRequestTarget target) {
                 getDataTablePanel().nextPage(target);
-                target.add(getDataTablePanel());
             }
         };
 
