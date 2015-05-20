@@ -49,7 +49,8 @@ var overlayClass = 'modal-overlay',
     overlaySelector = '.' + overlayClass,
     isIE6 = /MSIE 6.0/.test(navigator.userAgent),
     modalStack = [],
-    $overlay;
+    $overlay,
+    escKeyRegistered = false;
 
 /**
  * Hides the topmost modal element.
@@ -183,6 +184,19 @@ var show = function (e) {
   }
 
   // $modal.find('.checkable > input').each(EffReg.checkableChildEnablementHandler);
+
+  if (!escKeyRegistered) {
+
+    $(document).on('keyup', function (e) {
+      if (e.which == 27 && modalStack.length > 0) {
+        modalStack[modalStack.length - 1].find('.pnl-Dialog-closeLink a').click();
+        e.preventDefault();
+      }
+    });
+
+    escKeyRegistered = true;
+
+  }
 
 };
 

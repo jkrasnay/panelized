@@ -359,6 +359,15 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
         border.addHeaderLeftItem(new BorderTitlePanel("title", Model.of(title)));
 
+        AjaxLinkPanel closeLink = new AjaxLinkPanel(border.newPanelId(), "times", new AjaxAction() {
+            @Override
+            public void invoke(AjaxRequestTarget target) {
+                hide(target);
+            }
+        });
+        border.addHeaderRightItem(closeLink);
+        closeLink.add(new AttributeAppender("class", "pnl-Dialog-closeLink", " "));
+
         feedbackPanel = createFeedbackPanel(border.newPanelId());
         if (feedbackPanel != null) {
             border.addPanel(feedbackPanel);
