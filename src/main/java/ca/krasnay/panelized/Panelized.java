@@ -1,9 +1,12 @@
 package ca.krasnay.panelized;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.apache.wicket.markup.html.IPackageResourceGuard;
+import org.apache.wicket.markup.html.SecurePackageResourceGuard;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
 /**
@@ -20,5 +23,19 @@ public final class Panelized {
     public static final JavaScriptReferenceHeaderItem JS = JavaScriptHeaderItem.forReference(new PackageResourceReference(Panelized.class, "Panelized.js"));
 
     public static final OnDomReadyHeaderItem JS_INIT = OnDomReadyHeaderItem.forScript("Panelized.init()");
+
+    public static void init(Application app) {
+
+        IPackageResourceGuard packageResourceGuard = app.getResourceSettings().getPackageResourceGuard();
+
+        if (packageResourceGuard instanceof SecurePackageResourceGuard) {
+            SecurePackageResourceGuard guard = (SecurePackageResourceGuard) packageResourceGuard;
+            guard.addPattern("+*.woff");
+            guard.addPattern("+*.woff2");
+            guard.addPattern("+*.eot");
+            guard.addPattern("+*.svg");
+            guard.addPattern("+*.ttf");
+        }
+    }
 
 }

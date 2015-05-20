@@ -12,6 +12,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
+import ca.krasnay.panelized.Panelized;
+
 public class PanelizedTestApp extends WebApplication {
 
     public static void main(String[] args) throws Exception {
@@ -47,6 +49,8 @@ public class PanelizedTestApp extends WebApplication {
     protected void init() {
 
         super.init();
+
+        Panelized.init(this);
 
         getMarkupSettings().setStripWicketTags(true);
         getMarkupSettings().setDefaultBeforeDisabledLink("");
