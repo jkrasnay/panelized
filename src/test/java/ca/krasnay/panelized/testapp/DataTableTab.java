@@ -23,6 +23,7 @@ import ca.krasnay.panelized.ToolStyle;
 import ca.krasnay.panelized.datatable.CurrentPagePanel;
 import ca.krasnay.panelized.datatable.DataTablePanel;
 import ca.krasnay.panelized.datatable.PageButtonsPanel;
+import ca.krasnay.panelized.datatable.PageSizePanel;
 import ca.krasnay.panelized.datatable.ToolbarPanel;
 import ca.krasnay.panelized.datatable.filter.AddFilterActionPanel;
 import ca.krasnay.panelized.datatable.filter.FilterFactory;
@@ -68,6 +69,7 @@ public class DataTableTab extends AbstractTab {
         toolbar.addLeftItem(addFilterMenu);
         toolbar.addLeftItem(filterStatusPanel);
 
+        toolbar.addRightItem(new PageSizePanel(toolbar.newRightItemId(), dataTablePanel));
         toolbar.addRightItem(new CurrentPagePanel(toolbar.newRightItemId(), dataTablePanel));
         toolbar.addRightItem(new PageButtonsPanel(toolbar.newRightItemId(), dataTablePanel));
 
