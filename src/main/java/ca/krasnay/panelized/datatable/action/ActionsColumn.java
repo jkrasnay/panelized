@@ -157,21 +157,21 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         int directActionIndex = 0;
 
         if (viewAction != null) {
-            html.append(String.format("<a href='#' class='pnl-Button %s' title='View' data-action='%d'><i class='fa fa-eye'></i></a>",
+            html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='View' data-action='%d'><i class='fa fa-eye'></i></a>",
                     viewAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (editAction != null) {
-            html.append(String.format("<a href='#' class='pnl-Button %s' title='Edit' data-action='%d'><i class='fa fa-edit'></i></a>",
+            html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Edit' data-action='%d'><i class='fa fa-edit'></i></a>",
                     editAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (deleteAction != null) {
-            html.append(String.format("<a href='#' class='pnl-Button %s' title='Delete' data-action='%d'><i class='fa fa-trash'></i></a>",
+            html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Delete' data-action='%d'><i class='fa fa-trash'></i></a>",
                     deleteAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
         }
@@ -216,7 +216,7 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         StringBuilder sb = new StringBuilder();
 
         sb.append("<div class='pnl-DropDownMenu'>")
-        .append("<a class='pnl-Button pnl-DropDownMenu-toggle' title='Actions' href='#'><i class='fa fa-cog'></i></a>")
+        .append("<a class='pnl-Button pnl-Button--hover pnl-DropDownMenu-toggle' title='Actions' href='#'><i class='fa fa-cog'></i></a>")
         .append("<ul class='pnl-DropDownMenu-menu'>");
 
         List<DataTableAction<T>> allActions = getAllActions();
