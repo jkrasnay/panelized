@@ -32,7 +32,7 @@ public class QuickFilterPanel extends SearchFieldPanel {
     @Override
     protected void onConfigure() {
         super.onConfigure();
-        setVisible(getDataProvider() != null);
+        setVisible(getDataProvider() != null && getDataProvider().hasQuickFilters());
     }
 
     @Override

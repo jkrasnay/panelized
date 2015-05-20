@@ -104,7 +104,10 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
             List<Predicate> predicates = new ArrayList<>();
 
             for (SelectCreatorQuickFilter quickFilter : quickFilters) {
-                predicates.add(quickFilter.createPredicate(quickFilterString));
+                Predicate predicate = quickFilter.createPredicate(quickFilterString);
+                if (predicate != null) {
+                    predicates.add(predicate);
+                }
             }
 
             creator.where(or(predicates));
