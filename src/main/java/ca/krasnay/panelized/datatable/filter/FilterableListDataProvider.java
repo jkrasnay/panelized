@@ -24,12 +24,12 @@ public class FilterableListDataProvider<T extends Serializable> extends ListData
 
     private final SingleSortState<String> sortState = new SingleSortState<String>();
 
-    private List<ListQuickFilter> quickFilters = new ArrayList<>();
+    private List<ListQuickFilter<T>> quickFilters = new ArrayList<>();
 
     private String quickFilterString;
 
     public FilterableListDataProvider() {
-        this(null);
+        this(Collections.<T> emptyList());
     }
 
     public FilterableListDataProvider(List<T> list) {
@@ -67,7 +67,7 @@ public class FilterableListDataProvider<T extends Serializable> extends ListData
             }
 
             if (include && quickFilterString != null) {
-                for (ListQuickFilter filter : quickFilters) {
+                for (ListQuickFilter<T> filter : quickFilters) {
                     if (!filter.include(row, quickFilterString)) {
                         include = false;
                         break;
