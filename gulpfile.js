@@ -18,7 +18,7 @@ gulp.task('watch', [ 'watch-css', 'watch-js' ]);
 
 gulp.task('css', function () {
   return gulp.src('src/main/less/Panelized.less')
-  .pipe(less())
+  .pipe(less({ paths: [ './node_modules' ] }))
   .pipe(gulp.dest(dest));
 });
 

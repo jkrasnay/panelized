@@ -16,6 +16,7 @@ public class HomePage extends WebPage {
 
         List<ITab> tabs = new ArrayList<>();
         tabs.add(new DataTableTab());
+        tabs.add(new DatePickerTab());
         tabs.add(new DialogTab());
         tabs.add(new DropDownMenuTab());
         tabs.add(new LinkTab());
