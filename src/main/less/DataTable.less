@@ -4,22 +4,25 @@
     width: 100%;
 }
 
-.pnl-DataTable th,
-.pnl-DataTable td {
+.pnl-DataTable th {
     padding: 6px @h-padding;
+    text-align: left;
 }
 
 .pnl-DataTable td {
     border-top: 1px solid #f0f0f0;
-}
-
-.pnl-DataTable th {
-    text-align: left;
+    padding: 6px @h-padding;
 }
 
 .pnl-DataTable th a {
     color: #333;
     text-decoration: none;
+}
+
+.pnl-DataTable .pnl-DataTable-actionsColumn {
+  padding: 0;
+  white-space: nowrap;
+  width: 1px; /* using zero works on FF but not Chrome */
 }
 
 /* Toolbars */

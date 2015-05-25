@@ -181,7 +181,7 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
     @Override
     public String getCssClass() {
-        return "dt-tools";
+        return "pnl-DataTable-actionsColumn";
     }
 
     @Override

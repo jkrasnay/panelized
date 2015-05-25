@@ -3,6 +3,7 @@ package ca.krasnay.panelized.testapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -14,6 +15,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+import ca.krasnay.panelized.AccessController;
 import ca.krasnay.panelized.ContainerPanel;
 import ca.krasnay.panelized.DropDownMenuPanel;
 import ca.krasnay.panelized.DummyAccessController;
@@ -25,6 +27,8 @@ import ca.krasnay.panelized.datatable.DataTablePanel;
 import ca.krasnay.panelized.datatable.PageButtonsPanel;
 import ca.krasnay.panelized.datatable.PageSizePanel;
 import ca.krasnay.panelized.datatable.ToolbarPanel;
+import ca.krasnay.panelized.datatable.action.AbstractDataTableAction;
+import ca.krasnay.panelized.datatable.action.ActionsColumn;
 import ca.krasnay.panelized.datatable.filter.AddFilterActionPanel;
 import ca.krasnay.panelized.datatable.filter.FilterFactory;
 import ca.krasnay.panelized.datatable.filter.FilterStatusPanel;
@@ -106,10 +110,43 @@ public class DataTableTab extends AbstractTab {
 
 
         //
+        // Actions
+        //
+
+        AccessController accessController = new AccessController() {
+            @Override
+            public boolean canAccess(Class<?> uiElementClass) {
+                return true;
+            }
+        };
+
+        ActionsColumn<Widget> actionsColumn = new ActionsColumn<Widget>(dataTablePanel, accessController);
+
+        actionsColumn.setEditAction(new AbstractDataTableAction<Widget>("Edit") {
+            @Override
+            public void invoke(AjaxRequestTarget target, List<String> rowIds) {
+            }
+        });
+
+        actionsColumn.setDeleteAction(new AbstractDataTableAction<Widget>("Edit") {
+            @Override
+            public void invoke(AjaxRequestTarget target, List<String> rowIds) {
+            }
+        });
+
+        actionsColumn.setViewAction(new AbstractDataTableAction<Widget>("Edit") {
+            @Override
+            public void invoke(AjaxRequestTarget target, List<String> rowIds) {
+            }
+        });
+
+
+        //
         // Columns
         //
 
         List<IColumn<Widget, String>> columns = new ArrayList<>();
+        columns.add(actionsColumn);
         columns.add(new PropertyColumn<Widget, String>(Model.of("Name"), "name", "name"));
         columns.add(new AbstractColumn<Widget, String>(Model.of("Color")) {
             @Override
