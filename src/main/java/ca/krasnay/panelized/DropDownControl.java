@@ -13,7 +13,7 @@ import org.apache.wicket.model.Model;
 /**
  * Control that encapsulates a DropDownChoice component.
  *
- * @author John Krasnay <john@krasnay.ca>
+ * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
 public class DropDownControl<T> extends AbstractControl<T> {
 

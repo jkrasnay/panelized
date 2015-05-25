@@ -29,7 +29,7 @@ import org.apache.wicket.model.Model;
  *
  * <h2>Example</h2>
  *
- * <pre>
+ * <p><pre>
  * public class WidgetDialog extends DialogPanel {
  *
  *     public WidgetDialog(String id) {
@@ -46,7 +46,7 @@ import org.apache.wicket.model.Model;
  *         DialogFrame frame = buildFrame(title);
  *
  *         // Editor for the widget name
- *         frame.addPanel(new TextFieldPanel<String>("name"));
+ *         frame.addPanel(new TextFieldPanel&lt;String&gt;("name"));
  *
  *         // Add other editors as required
  *
@@ -58,7 +58,7 @@ import org.apache.wicket.model.Model;
  *
  *     }
  * }
- * </pre>
+ * </pre></p>
  *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */

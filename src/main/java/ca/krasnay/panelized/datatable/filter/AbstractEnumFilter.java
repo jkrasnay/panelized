@@ -53,23 +53,6 @@ public abstract class AbstractEnumFilter<E extends Enum<E>> implements DataTable
         this.selectedValues.addAll(Arrays.asList(values));
     }
 
-    /**
-     * Constructor.
-     *
-     * @param key
-     *            Key by which the filter is known in URLs and persistent
-     *            storage.
-     * @param name
-     *            Human-readable name for the filter, e.g. "Status"
-     * @param enumClass
-     *            Class of the enum.
-     */
-//    public AbstractEnumFilter(String key, String name, Class<E> enumClass) {
-//        this.key = key;
-//        this.name = name;
-//        this.enumClass = enumClass;
-//    }
-
     @Override
     public void buildEditor(PanelContainer popup) {
 

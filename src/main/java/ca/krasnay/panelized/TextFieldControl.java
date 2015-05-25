@@ -19,7 +19,7 @@ import org.apache.wicket.util.convert.IConverter;
  *
  * @param <T> Type of the model object.
  *
- * @author John Krasnay <john@krasnay.ca>
+ * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
 public class TextFieldControl<T> extends AbstractControl<T> {
 

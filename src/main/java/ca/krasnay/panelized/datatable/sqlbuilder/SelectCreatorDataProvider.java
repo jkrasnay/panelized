@@ -34,7 +34,7 @@ import ca.krasnay.sqlbuilder.SelectCreator;
  * DataProvider built around the SelectCreator class. Provides sorting and
  * filtering capabilities by modifying the query as needed.
  *
- * @author John Krasnay <john@krasnay.ca>
+ * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
 public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider, QuickFilterDataProvider {
 

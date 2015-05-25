@@ -10,7 +10,7 @@ import org.apache.wicket.model.IModel;
 /**
  * Form item panel that encapsulates a check box.
  *
- * @author John Krasnay <john@krasnay.ca>
+ * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
 public class CheckBoxPanel extends CheckablePanel {
 

@@ -15,24 +15,24 @@ public final class EnumUtils {
      * names are obtained from a resource bundle in the same package with the
      * same name as the enum class. For example, consider the following class:
      *
-     * <pre>
+     * <p><pre>
      * public class Widget {
      *     public enum Colour {
      *         RED, WHITE, BLUE;
      *     }
      * }
-     * <pre>
+     * </pre></p>
      *
      * <p>
      * This method would look for the resource bundle called
      * Widget$Colour.properties in the same package, which might look like this:
      * </p>
      *
-     * <pre>
+     * <p><pre>
      * RED=Red
      * WHITE=White
      * BLUE=Blue
-     * </pre>
+     * </pre></p>
      *
      * @param value Enum value for which to return the string.
      */

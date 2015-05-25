@@ -12,7 +12,6 @@ import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.data.IDataProvider;
-import org.apache.wicket.model.IModel;
 
 import ca.krasnay.panelized.PanelContainer;
 
@@ -81,7 +80,7 @@ public abstract class AbstractDataTablePanel<T> extends Panel implements IHeader
     /**
      * Returns the name of the property in the row object that returns the row
      * ID for the purpose of identifying the row to actions. Used by the default
-     * implementation of {@link #getRowId(IModel)}. By default returns "id".
+     * implementation of {@link #getRowId(Object)}. By default returns "id".
      */
     public String getRowIdProperty() {
         return rowIdProperty;

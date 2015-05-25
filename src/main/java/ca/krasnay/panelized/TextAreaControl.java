@@ -9,7 +9,7 @@ import org.apache.wicket.model.IModel;
 /**
  * Form item panel that encapsulates a text area.
  *
- * @author John Krasnay <john@krasnay.ca>
+ * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
 public class TextAreaControl extends AbstractControl<String> {
 
