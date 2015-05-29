@@ -87,7 +87,7 @@ function init(e, reorderable, remoteSearchUrl) {
      * have their checkboxes checked.
      */
     var checkedRows = function () {
-        return $(e).find('tr').has('td.dt-tools input:checkbox:checked');
+        return $(e).find('tr').has('td.pnl-DataTable-actionsColumn input:checkbox:checked');
     };
 
     /**
@@ -104,7 +104,7 @@ function init(e, reorderable, remoteSearchUrl) {
      */
     var updateMultiActionEnablement = function () {
 
-        $(e).find('th.dt-tools a').not('.btn').each(function () {
+        $(e).find('th.pnl-DataTable-actionsColumn a').not('.btn').each(function () {
             var $this = $(this);
             var actionIndex = $this.data('action');
             if (activeActions(actionIndex).size() > 0) {
@@ -118,7 +118,7 @@ function init(e, reorderable, remoteSearchUrl) {
         //
         // Disable page-level menu items if there are any checked checkboxes
         //
-        var checked = ($(e).find('td.dt-tools input:checked').size() > 0);
+        var checked = ($(e).find('td.pnl-DataTable-actionsColumn input:checked').size() > 0);
 
         $('.pg-title .dropdown-menu a').each(function () {
             var $this = $(this);
@@ -149,12 +149,12 @@ function init(e, reorderable, remoteSearchUrl) {
 
     updateMultiActionEnablement();
 
-    $(e).on('click', 'th.dt-tools input:checkbox', function (e) {
-        $(this).parents('table').find('td.dt-tools input:checkbox').prop('checked', $(this).prop('checked'));
+    $(e).on('click', 'th.pnl-DataTable-actionsColumn input:checkbox', function (e) {
+        $(this).parents('table').find('td.pnl-DataTable-actionsColumn input:checkbox').prop('checked', $(this).prop('checked'));
         updateMultiActionEnablement();
     });
 
-    $(e).on('click', 'th.dt-tools a[data-action]', function (e) {
+    $(e).on('click', 'th.pnl-DataTable-actionsColumn a[data-action]', function (e) {
 
         var $this = $(this);
 
@@ -182,11 +182,11 @@ function init(e, reorderable, remoteSearchUrl) {
 
     });
 
-    $(e).on('click', 'td.dt-tools input:checkbox', function (e) {
+    $(e).on('click', 'td.pnl-DataTable-actionsColumn input:checkbox', function (e) {
         updateMultiActionEnablement();
     });
 
-    $(e).on('click', 'td.dt-tools a[data-action]', function (e) {
+    $(e).on('click', 'td.pnl-DataTable-actionsColumn a[data-action]', function (e) {
         if (!$(this).hasClass('disabled')) {
             var url = remoteSearchUrl + '&action=' + $(this).data('action') + '&rowId=' + $(this).parents('tr').data('rowId');
             Wicket.Ajax.get({ u: url });
@@ -194,11 +194,11 @@ function init(e, reorderable, remoteSearchUrl) {
         e.preventDefault();
     });
 
-    $(e).on('click', 'td.dt-comment a', function (e) {
-        var url = remoteSearchUrl + '&comment=1&rowId=' + $(this).parents('tr').data('rowId');
-        Wicket.Ajax.get({ u: url });
-        e.preventDefault();
-    });
+//    $(e).on('click', 'td.dt-comment a', function (e) {
+//        var url = remoteSearchUrl + '&comment=1&rowId=' + $(this).parents('tr').data('rowId');
+//        Wicket.Ajax.get({ u: url });
+//        e.preventDefault();
+//    });
 
 }
 
@@ -219,7 +219,7 @@ function initActions(e, remoteSearchUrl) {
      * have their checkboxes checked.
      */
     var checkedRows = function () {
-        return $(e).find('tr').has('td.dt-tools input:checkbox:checked');
+        return $(e).find('tr').has('td.pnl-DataTable-actionsColumn input:checkbox:checked');
     };
 
     /**
@@ -236,7 +236,7 @@ function initActions(e, remoteSearchUrl) {
      */
     var updateMultiActionEnablement = function () {
 
-        $(e).find('th.dt-tools a').not('.btn').each(function () {
+        $(e).find('th.pnl-DataTable-actionsColumn a').not('.btn').each(function () {
             var $this = $(this);
             var actionIndex = $this.data('action');
             if (activeActions(actionIndex).size() > 0) {
@@ -250,7 +250,7 @@ function initActions(e, remoteSearchUrl) {
         //
         // Disable page-level menu items if there are any checked checkboxes
         //
-        var checked = ($(e).find('td.dt-tools input:checked').size() > 0);
+        var checked = ($(e).find('td.pnl-DataTable-actionsColumn input:checked').size() > 0);
 
         $('.pg-title .dropdown-menu a').each(function () {
             var $this = $(this);
@@ -281,12 +281,12 @@ function initActions(e, remoteSearchUrl) {
 
     updateMultiActionEnablement();
 
-    $(e).on('click', 'th.dt-tools input:checkbox', function (e) {
-        $(this).parents('table').find('td.dt-tools input:checkbox').prop('checked', $(this).prop('checked'));
+    $(e).on('click', 'th.pnl-DataTable-actionsColumn input:checkbox', function (e) {
+        $(this).parents('table').find('td.pnl-DataTable-actionsColumn input:checkbox').prop('checked', $(this).prop('checked'));
         updateMultiActionEnablement();
     });
 
-    $(e).on('click', 'th.dt-tools a[data-action]', function (e) {
+    $(e).on('click', 'th.pnl-DataTable-actionsColumn a[data-action]', function (e) {
 
         var $this = $(this);
 
@@ -314,11 +314,11 @@ function initActions(e, remoteSearchUrl) {
 
     });
 
-    $(e).on('click', 'td.dt-tools input:checkbox', function (e) {
+    $(e).on('click', 'td.pnl-DataTable-actionsColumn input:checkbox', function (e) {
         updateMultiActionEnablement();
     });
 
-    $(e).on('click', 'td.dt-tools a[data-action]', function (e) {
+    $(e).on('click', 'td.pnl-DataTable-actionsColumn a[data-action]', function (e) {
         if (!$(this).hasClass('disabled')) {
             var url = remoteSearchUrl + '&action=' + $(this).data('action') + '&rowId=' + $(this).parents('tr').data('rowId');
             Wicket.Ajax.get({ u: url });
@@ -326,11 +326,11 @@ function initActions(e, remoteSearchUrl) {
         e.preventDefault();
     });
 
-    $(e).on('click', 'td.dt-comment a', function (e) {
-        var url = remoteSearchUrl + '&comment=1&rowId=' + $(this).parents('tr').data('rowId');
-        Wicket.Ajax.get({ u: url });
-        e.preventDefault();
-    });
+//    $(e).on('click', 'td.dt-comment a', function (e) {
+//        var url = remoteSearchUrl + '&comment=1&rowId=' + $(this).parents('tr').data('rowId');
+//        Wicket.Ajax.get({ u: url });
+//        e.preventDefault();
+//    });
 
 }
 
