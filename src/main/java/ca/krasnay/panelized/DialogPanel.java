@@ -150,23 +150,23 @@ public class DialogPanel extends Panel implements IHeaderContributor {
             return this;
         }
 
-//        public void addExportButton(ExportAction exportAction) {
-//
-//            if (exportBehavior != null) {
-//                throw new RuntimeException("You can add at most one export button to a popup.");
-//            }
-//
-//            add(exportBehavior = new ExportBehavior(exportAction));
-//
-//            addSaveButton("Export", new AjaxAction() {
-//                @Override
-//                public void invoke(AjaxRequestTarget target) {
-//                    exportBehavior.queueExport(target);
-//                    hide(target);
-//                }
-//            });
-//
-//        }
+        public void addExportButton(ExportAction exportAction) {
+
+            if (exportBehavior != null) {
+                remove(exportBehavior);
+            }
+
+            add(exportBehavior = new ExportBehavior(exportAction));
+
+            addSaveButton("Export", new AjaxAction() {
+                @Override
+                public void invoke(AjaxRequestTarget target) {
+                    exportBehavior.queueExport(target);
+                    hide(target);
+                }
+            });
+
+        }
 
         public void addLeftButton(Button button) {
             leftButtonsPanel.addButton(button);
@@ -304,7 +304,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
     private Height height = Height.SHORT;
 
-//    private ExportBehavior exportBehavior;
+    private ExportBehavior exportBehavior;
 
     private boolean isShowing;
 
