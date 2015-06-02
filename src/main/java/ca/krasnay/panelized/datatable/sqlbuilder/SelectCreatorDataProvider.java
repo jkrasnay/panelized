@@ -36,7 +36,7 @@ import ca.krasnay.sqlbuilder.SelectCreator;
  *
  * @author <a href="mailto:john@krasnay.ca">John Krasnay</a>
  */
-public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider, QuickFilterDataProvider {
+public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, String> implements FilterableDataProvider, QuickFilterDataProvider, Iterable<RowMap> {
 
     private static final Logger log = LoggerFactory.getLogger(SelectCreatorDataProvider.class);
 
@@ -230,6 +230,11 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
         return quickFilters.size() > 0;
     }
 
+    @Override
+    public Iterator<RowMap> iterator() {
+        return iterator(0, Integer.MAX_VALUE);
+    }
+
     /**
      * Hook method that subclasses can use to modify the row after it has been
      * loaded from the result set. By default does nothing.
@@ -240,4 +245,5 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
     protected void processRow(RowMap row) {
 
     }
+
 }
