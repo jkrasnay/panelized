@@ -32,7 +32,7 @@ public class LabelledPanel extends Panel implements PanelContainer {
     private boolean wide;
 
     public LabelledPanel(String id) {
-        this(id, (String) null);
+        this(id, (IModel<String>) null);
     }
 
     public LabelledPanel(String id, String label) {
