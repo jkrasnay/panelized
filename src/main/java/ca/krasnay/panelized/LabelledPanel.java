@@ -53,10 +53,14 @@ public class LabelledPanel extends Panel implements PanelContainer {
             @Override
             public String getObject() {
 
-                String result = "labelled";
+                String result = "pnl-Labelled";
 
                 if (wide) {
-                    result += " labelled-wide";
+                    result += " pnl-Labelled--wide";
+                }
+
+                if (isRequired()) {
+                    result += " pnl-Labelled--required";
                 }
 
                 if (cssClass != null) {
@@ -74,7 +78,7 @@ public class LabelledPanel extends Panel implements PanelContainer {
         label.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return LabelledPanel.this.isRequired() ? "required" : null;
+                return "pnl-Labelled-label";
             }
         }, " "));
 

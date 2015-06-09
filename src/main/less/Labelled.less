@@ -1,0 +1,28 @@
+
+.pnl-Labelled {
+  margin-bottom: 10px;
+  /* Creates a left-padding area into which we pull the label    */
+  /* If you change this number, you must also change the numbers */
+  /* in the next rule.                                           */
+  padding-left: 25%;
+  min-height: @font-size;
+}
+
+.pnl-Labelled-label {
+  /* This drags the label out into the left padding */
+  float: left;
+  font-weight: bold;
+  margin-left: -33.33%;
+  width: 30%;
+}
+
+.pnl-Labelled--wide {
+  padding-left: 0;
+}
+
+.pnl-Labelled--wide .pnl-Labelled-label {
+  float: none;
+  margin-left: 0;
+  width: auto;
+}
+
