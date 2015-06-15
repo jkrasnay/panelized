@@ -233,7 +233,14 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
                     pendingSeparator = true;
                 }
             } else {
-                if ((singleRow && action.isVisible(row)) || (!singleRow && action.acceptsMultiples())) {
+                if (action == editAction) {
+                    // skip
+                } else if (action == deleteAction) {
+                    // skip
+                } else if (action == viewAction) {
+                    // skip
+                } else if ((singleRow && action.isVisible(row))
+                        || (!singleRow && action.acceptsMultiples())) {
 
                     if (pendingSeparator) {
                         sb.append("<li class='divider'></li>\n");
@@ -260,7 +267,7 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
         sb.append("</ul>");
         sb.append("</div>");
 
-        return sb.toString();
+        return actionsAdded ? sb.toString() : null;
     }
 
     /**
