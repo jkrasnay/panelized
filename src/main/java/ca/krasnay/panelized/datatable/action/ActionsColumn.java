@@ -156,21 +156,21 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
         int directActionIndex = 0;
 
-        if (viewAction != null) {
+        if (viewAction != null && viewAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='View' data-action='%d'><i class='fa fa-eye'></i></a>",
                     viewAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
-        if (editAction != null) {
+        if (editAction != null && editAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Edit' data-action='%d'><i class='fa fa-edit'></i></a>",
                     editAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
-        if (deleteAction != null) {
+        if (deleteAction != null && deleteAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Delete' data-action='%d'><i class='fa fa-trash'></i></a>",
                     deleteAction.isEnabled(row) ? "" : "disabled",
                             directActionIndex));
@@ -235,7 +235,7 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
             } else {
                 if (action == editAction) {
                     // skip
-                } else if (action == deleteAction) {
+                } else if (action == deleteAction && singleRow) {
                     // skip
                 } else if (action == viewAction) {
                     // skip
