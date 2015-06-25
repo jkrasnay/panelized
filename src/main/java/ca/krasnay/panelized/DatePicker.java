@@ -6,6 +6,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.joda.time.LocalDate;
 
+import ca.krasnay.panelized.js.JsCode;
 import ca.krasnay.panelized.js.JsObject;
 
 /**
@@ -44,11 +45,11 @@ public class DatePicker extends Behavior {
         opts.put("format", format.toUpperCase());
 
         if (startDate != null) {
-            opts.put("minDate", startDate.toString(format));
+            opts.put("minDate", new JsCode(String.format("new Date(%d, %d, %d)", startDate.getYear(), startDate.getMonthOfYear()-1, startDate.getDayOfMonth())));
         }
 
         if (endDate != null) {
-            opts.put("maxDate", endDate.toString(format));
+            opts.put("maxDate", new JsCode(String.format("new Date(%d, %d, %d)", endDate.getYear(), endDate.getMonthOfYear()-1, endDate.getDayOfMonth())));
         }
 
         System.out.println(String.format("Panelized.DatePicker.init('#%s', %s)", component.getMarkupId(), opts));
