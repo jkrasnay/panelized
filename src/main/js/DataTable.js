@@ -95,7 +95,7 @@ function init(e, reorderable, remoteSearchUrl) {
      * checked rows and are enabled for the given action index.
      */
     var activeActions = function (actionIndex) {
-        return checkedRows().find('a[data-action=' + actionIndex + ']').not('.disabled');
+        return checkedRows().find('a[data-action=' + actionIndex + ']').not('.is-disabled');
     };
 
     /**
@@ -108,9 +108,9 @@ function init(e, reorderable, remoteSearchUrl) {
             var $this = $(this);
             var actionIndex = $this.data('action');
             if (activeActions(actionIndex).size() > 0) {
-                $this.removeClass('disabled');
+                $this.removeClass('is-disabled');
             } else {
-                $this.addClass('disabled');
+                $this.addClass('is-disabled');
             }
         });
 
@@ -128,7 +128,7 @@ function init(e, reorderable, remoteSearchUrl) {
                     $this.data('onclick', $this.attr('onclick'));
                 }
 
-                $this.addClass('disabled')
+                $this.addClass('is-disabled')
                 .attr('onclick', 'return false');
 
             } else {
@@ -137,7 +137,7 @@ function init(e, reorderable, remoteSearchUrl) {
                 // NOTE: force-disabled set by DropDownMenuPanel if the action itself is disabled
                 //
 
-                $this.not('.force-disabled').removeClass('disabled');
+                $this.not('.force-disabled').removeClass('is-disabled');
 
                 if ($this.data('onclick')) {
                     $this.attr('onclick', $this.data('onclick'));
@@ -158,7 +158,7 @@ function init(e, reorderable, remoteSearchUrl) {
 
         var $this = $(this);
 
-        if (!$(this).hasClass('disabled')) {
+        if (!$(this).hasClass('is-disabled')) {
 
             var actionIndex = $this.data('action');
             var checkedCount = checkedRows().size();
@@ -169,7 +169,7 @@ function init(e, reorderable, remoteSearchUrl) {
 
             var url = remoteSearchUrl + '&action=' + actionIndex + '&rowId=' + rowIds + "&checkedCount=" + checkedRows().size();
 
-            checkedRows().has('a[data-action=' + actionIndex + '].disabled')
+            checkedRows().has('a[data-action=' + actionIndex + '].is-disabled')
             .filter(function () { return $(this).data('row-name'); })
             .slice(0, 10).each(function() {
                 url += '&badRow=' + encodeURIComponent($(this).data('rowName'));
@@ -187,7 +187,7 @@ function init(e, reorderable, remoteSearchUrl) {
     });
 
     $(e).on('click', 'td.pnl-DataTable-actionsColumn a[data-action]', function (e) {
-        if (!$(this).hasClass('disabled')) {
+        if (!$(this).hasClass('is-disabled')) {
             var url = remoteSearchUrl + '&action=' + $(this).data('action') + '&rowId=' + $(this).parents('tr').data('rowId');
             Wicket.Ajax.get({ u: url });
         }
@@ -227,7 +227,7 @@ function initActions(e, remoteSearchUrl) {
      * checked rows and are enabled for the given action index.
      */
     var activeActions = function (actionIndex) {
-        return checkedRows().find('a[data-action=' + actionIndex + ']').not('.disabled');
+        return checkedRows().find('a[data-action=' + actionIndex + ']').not('.is-disabled');
     };
 
     /**
@@ -240,9 +240,9 @@ function initActions(e, remoteSearchUrl) {
             var $this = $(this);
             var actionIndex = $this.data('action');
             if (activeActions(actionIndex).size() > 0) {
-                $this.removeClass('disabled');
+                $this.removeClass('is-disabled');
             } else {
-                $this.addClass('disabled');
+                $this.addClass('is-disabled');
             }
         });
 
@@ -260,7 +260,7 @@ function initActions(e, remoteSearchUrl) {
                     $this.data('onclick', $this.attr('onclick'));
                 }
 
-                $this.addClass('disabled')
+                $this.addClass('is-disabled')
                 .attr('onclick', 'return false');
 
             } else {
@@ -269,7 +269,7 @@ function initActions(e, remoteSearchUrl) {
                 // NOTE: force-disabled set by DropDownMenuPanel if the action itself is disabled
                 //
 
-                $this.not('.force-disabled').removeClass('disabled');
+                $this.not('.force-disabled').removeClass('is-disabled');
 
                 if ($this.data('onclick')) {
                     $this.attr('onclick', $this.data('onclick'));
@@ -290,7 +290,7 @@ function initActions(e, remoteSearchUrl) {
 
         var $this = $(this);
 
-        if (!$(this).hasClass('disabled')) {
+        if (!$(this).hasClass('is-disabled')) {
 
             var actionIndex = $this.data('action');
             var checkedCount = checkedRows().size();
@@ -301,7 +301,7 @@ function initActions(e, remoteSearchUrl) {
 
             var url = remoteSearchUrl + '&action=' + actionIndex + '&rowId=' + rowIds + "&checkedCount=" + checkedRows().size();
 
-            checkedRows().has('a[data-action=' + actionIndex + '].disabled')
+            checkedRows().has('a[data-action=' + actionIndex + '].is-disabled')
             .filter(function () { return $(this).data('row-name'); })
             .slice(0, 10).each(function() {
                 url += '&badRow=' + encodeURIComponent($(this).data('rowName'));
@@ -319,7 +319,7 @@ function initActions(e, remoteSearchUrl) {
     });
 
     $(e).on('click', 'td.pnl-DataTable-actionsColumn a[data-action]', function (e) {
-        if (!$(this).hasClass('disabled')) {
+        if (!$(this).hasClass('is-disabled')) {
             var url = remoteSearchUrl + '&action=' + $(this).data('action') + '&rowId=' + $(this).parents('tr').data('rowId');
             Wicket.Ajax.get({ u: url });
         }

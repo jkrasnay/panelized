@@ -158,21 +158,21 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
         if (viewAction != null && viewAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='View' data-action='%d'><i class='fa fa-eye'></i></a>",
-                    viewAction.isEnabled(row) ? "" : "disabled",
+                    viewAction.isEnabled(row) ? "" : "is-disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (editAction != null && editAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Edit' data-action='%d'><i class='fa fa-edit'></i></a>",
-                    editAction.isEnabled(row) ? "" : "disabled",
+                    editAction.isEnabled(row) ? "" : "is-disabled",
                             directActionIndex));
             directActionIndex++;
         }
 
         if (deleteAction != null && deleteAction.isVisible(row)) {
             html.append(String.format("<a href='#' class='pnl-Button pnl-Button--hover %s' title='Delete' data-action='%d'><i class='fa fa-trash'></i></a>",
-                    deleteAction.isEnabled(row) ? "" : "disabled",
+                    deleteAction.isEnabled(row) ? "" : "is-disabled",
                             directActionIndex));
         }
 
