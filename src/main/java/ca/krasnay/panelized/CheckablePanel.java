@@ -39,19 +39,19 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
 
         super(id, model);
 
-        add(new AttributeAppender("class", Model.of("checkable"), " "));
+        add(new AttributeAppender("class", Model.of("pnl-Checkable"), " "));
 
         add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return tall ? "checkable-tall" : null;
+                return tall ? "pnl-Checkable--tall" : null;
             }
         }, " "));
 
         add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
             @Override
             public String getObject() {
-                return heading ? "checkable-heading" : null;
+                return heading ? "pnl-Checkable--heading" : null;
             }
         }, " "));
 
@@ -62,6 +62,7 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
         add(inlinePanelRepeater);
 
         childItems = new ContainerPanel("childItems") {
+            @Override
             public boolean isEnabled() {
                 // Disable validations for children when we're not checked
                 return isChecked();
@@ -100,7 +101,6 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
             Component checkable = getCheckable();
             checkable.setOutputMarkupId(true);
             label.add(new AttributeModifier("for", checkable.getMarkupId()));
-            checkable.add(new AttributeAppender("class", Model.of("checkable"), " "));
         }
 
         super.onBeforeRender();
