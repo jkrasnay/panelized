@@ -374,10 +374,17 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
     public ActionsColumn<T> setDeleteAction(DataTableAction<T> deleteAction) {
 
-        this.deleteAction = deleteAction;
+        if (accessController == null) {
+            throw new RuntimeException("You must set the access controller on the data table before adding actions");
+        }
 
-        if (deleteAction instanceof Panel) {
-            dataTablePanel.addPanel((Panel) deleteAction);
+        if (accessController.canAccess(deleteAction.getClass())) {
+
+            this.deleteAction = deleteAction;
+
+            if (deleteAction instanceof Panel) {
+                dataTablePanel.addPanel((Panel) deleteAction);
+            }
         }
 
         return this;
@@ -386,10 +393,17 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
     public ActionsColumn<T> setEditAction(DataTableAction<T> editAction) {
 
-        this.editAction = editAction;
+        if (accessController == null) {
+            throw new RuntimeException("You must set the access controller on the data table before adding actions");
+        }
 
-        if (editAction instanceof Panel) {
-            dataTablePanel.addPanel((Panel) editAction);
+        if (accessController.canAccess(editAction.getClass())) {
+
+            this.editAction = editAction;
+
+            if (editAction instanceof Panel) {
+                dataTablePanel.addPanel((Panel) editAction);
+            }
         }
 
         return this;
@@ -398,10 +412,17 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
     public ActionsColumn<T> setViewAction(DataTableAction<T> viewAction) {
 
-        this.viewAction = viewAction;
+        if (accessController == null) {
+            throw new RuntimeException("You must set the access controller on the data table before adding actions");
+        }
 
-        if (viewAction instanceof Panel) {
-            dataTablePanel.addPanel((Panel) viewAction);
+        if (accessController.canAccess(viewAction.getClass())) {
+
+            this.viewAction = viewAction;
+
+            if (viewAction instanceof Panel) {
+                dataTablePanel.addPanel((Panel) viewAction);
+            }
         }
 
         return this;
