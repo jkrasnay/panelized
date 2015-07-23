@@ -14,6 +14,7 @@ import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.PopupSettings;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
@@ -55,12 +56,12 @@ public class DropDownMenuPanel extends Panel {
 
         private IModel<String> linkTextModel;
 
-        private String popupWindowId;
+        private PopupSettings popupSettings;
 
-        private PageLinkAction(PageRef pageRef, IModel<String> linkTextModel, String popupWindowId) {
+        private PageLinkAction(PageRef pageRef, IModel<String> linkTextModel, PopupSettings popupSettings) {
             this.pageRef = pageRef;
             this.linkTextModel = linkTextModel;
-            this.popupWindowId = popupWindowId;
+            this.popupSettings = popupSettings;
         }
 
     }
@@ -172,8 +173,8 @@ public class DropDownMenuPanel extends Panel {
         addPageLink(pageRef, linkTextModel, null);
     }
 
-    public void addPageLink(PageRef pageRef, IModel<String> linkTextModel, String popupWindowId) {
-        actions.add(new PageLinkAction(pageRef, linkTextModel, popupWindowId));
+    public void addPageLink(PageRef pageRef, IModel<String> linkTextModel, PopupSettings popupSettings) {
+        actions.add(new PageLinkAction(pageRef, linkTextModel, popupSettings));
     }
 
     public void addSeparator() {
@@ -346,10 +347,7 @@ public class DropDownMenuPanel extends Panel {
                 }
             };
             item.add(link);
-
-            if (action.popupWindowId != null) {
-                link.add(new AttributeModifier("onclick", String.format("return effreg.popup(this, '%s')", action.popupWindowId)));
-            }
+            link.setPopupSettings(action.popupSettings);
 
             link.add(new Label("text", action.linkTextModel).setRenderBodyOnly(true));
 
