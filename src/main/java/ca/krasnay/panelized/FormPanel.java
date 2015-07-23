@@ -28,6 +28,10 @@ public class FormPanel extends Panel implements PanelContainer {
 
         form = new Form<Void>("form") {
             @Override
+            protected boolean getStatelessHint() {
+                return FormPanel.this.getStatelessHint();
+            }
+            @Override
             protected void onComponentTag(ComponentTag tag) {
                 super.onComponentTag(tag);
                 onFormComponentTag(tag);
@@ -52,6 +56,11 @@ public class FormPanel extends Panel implements PanelContainer {
 
     public Form<Void> getForm() {
         return form;
+    }
+
+    @Override
+    protected boolean getStatelessHint() {
+        return false; // Match the default for Form. Our embedded form calls this.
     }
 
     @Override
