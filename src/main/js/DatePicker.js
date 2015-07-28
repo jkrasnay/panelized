@@ -7,8 +7,6 @@ function init(element, options) {
     field: $(element)[0]
   }, options);
 
-  console.log('calling Pikaday', opts);
-
   new Pikaday(opts);
 
 }
