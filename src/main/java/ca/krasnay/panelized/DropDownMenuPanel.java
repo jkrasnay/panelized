@@ -272,9 +272,9 @@ public class DropDownMenuPanel extends Panel {
                     //
 
                     if (tag.getAttributes().containsKey("class")) {
-                        tag.put("class", tag.getAttribute("class") + " disabled force-disabled");
+                        tag.put("class", tag.getAttribute("class") + " is-disabled force-disabled");
                     } else {
-                        tag.put("class", "disabled force-disabled");
+                        tag.put("class", "is-disabled force-disabled");
                     }
                 }
 

@@ -37,6 +37,7 @@
 
 
 .pnl-DropDownMenu-menu a {
+  color: @menu-fg;
   display: block;
   /*line-height: 18px; from Bootstrap, not sure we need it */
   min-width: 120px;
@@ -49,3 +50,10 @@
   background-color: @menu-hover-bg;
   color: @menu-hover-fg;
 }
+
+.pnl-DropDownMenu-menu a.is-disabled {
+  background-color: @menu-disabled-bg;
+  color: @menu-disabled-fg;
+  cursor: default;
+}
+

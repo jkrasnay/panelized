@@ -249,9 +249,9 @@ public class ActionsColumn<T> extends AbstractColumn<T, String> {
 
                     String cssClass = "";
                     if (!singleRow) {
-                        cssClass = "disabled";
+                        cssClass = "is-disabled";
                     } else if (!action.isEnabled(row)) {
-                        cssClass = "disabled";
+                        cssClass = "is-disabled";
                     }
 
                     sb.append("<li>");
