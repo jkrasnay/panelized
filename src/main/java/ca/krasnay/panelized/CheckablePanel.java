@@ -63,6 +63,10 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
 
         childItems = new ContainerPanel("childItems") {
             @Override
+            public String getCssClass() {
+                return "pnl-Checkable-children";
+            }
+            @Override
             public boolean isEnabled() {
                 // Disable validations for children when we're not checked
                 return isChecked();
