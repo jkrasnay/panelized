@@ -27,11 +27,11 @@ public class DropDownControl<T> extends AbstractControl<T> {
         this(id, (List<T>) null);
     }
 
-    public DropDownControl(String id, IModel<List<? extends T>> choices) {
+    public DropDownControl(String id, IModel<List<T>> choices) {
         this(id, null, choices);
     }
 
-    public DropDownControl(String id, IModel<T> model, IModel<List<? extends T>> choices) {
+    public DropDownControl(String id, IModel<T> model, IModel<List<T>> choices) {
 
         super(id, model);
 
@@ -98,6 +98,7 @@ public class DropDownControl<T> extends AbstractControl<T> {
         this(id, null, Model.ofList(choices));
     }
 
+    @Override
     public DropDownChoice<T> getFormComponent() {
         return dropDownChoice;
     }

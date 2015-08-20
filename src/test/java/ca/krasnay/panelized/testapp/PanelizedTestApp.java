@@ -53,8 +53,8 @@ public class PanelizedTestApp extends WebApplication {
         Panelized.init(this);
 
         getMarkupSettings().setStripWicketTags(true);
-        getMarkupSettings().setDefaultBeforeDisabledLink("");
-        getMarkupSettings().setDefaultAfterDisabledLink("");
+//        getMarkupSettings().setDefaultBeforeDisabledLink("");
+//        getMarkupSettings().setDefaultAfterDisabledLink("");
 
     }
 
