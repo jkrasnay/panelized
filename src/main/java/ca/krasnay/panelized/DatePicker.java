@@ -52,7 +52,6 @@ public class DatePicker extends Behavior {
             opts.put("maxDate", new JsCode(String.format("new Date(%d, %d, %d)", endDate.getYear(), endDate.getMonthOfYear()-1, endDate.getDayOfMonth())));
         }
 
-        System.out.println(String.format("Panelized.DatePicker.init('#%s', %s)", component.getMarkupId(), opts));
         response.render(OnDomReadyHeaderItem.forScript(String.format("Panelized.DatePicker.init('#%s', %s)", component.getMarkupId(), opts)));
     }
 
