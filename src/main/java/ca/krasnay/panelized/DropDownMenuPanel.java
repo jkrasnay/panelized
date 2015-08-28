@@ -19,6 +19,7 @@ import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
@@ -98,6 +99,8 @@ public class DropDownMenuPanel extends Panel {
 
     private RepeatingView panelRepeater;
 
+    private IModel<String> toolTipModel;
+
     private boolean visible = true;
 
     /**
@@ -134,6 +137,13 @@ public class DropDownMenuPanel extends Panel {
                 }
             }
         }, " "));
+
+        link.add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
+            @Override
+            public String getObject() {
+                return toolTipModel != null ? toolTipModel.getObject() : null;
+            }
+        }));
 
         WebMarkupContainer menu = new WebMarkupContainer("menu");
         add(menu);
@@ -405,6 +415,16 @@ public class DropDownMenuPanel extends Panel {
 
     public DropDownMenuPanel setStyle(ToolStyle style) {
         this.style = style;
+        return this;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public DropDownMenuPanel setToolTip(IModel<String> model) {
+        if (model instanceof IComponentAssignedModel) {
+            this.toolTipModel = ((IComponentAssignedModel)model).wrapOnAssignment(this);
+        } else{
+            this.toolTipModel = model;
+        }
         return this;
     }
 

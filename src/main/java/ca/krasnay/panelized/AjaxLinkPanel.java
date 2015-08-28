@@ -1,10 +1,12 @@
 package ca.krasnay.panelized;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IModel;
 
 public class AjaxLinkPanel extends Panel {
@@ -12,6 +14,8 @@ public class AjaxLinkPanel extends Panel {
     private boolean defaultButton;
 
     private ToolStyle style = ToolStyle.LINK;
+
+    private IModel<String> toolTipModel;
 
     public AjaxLinkPanel(String panelId, IModel<String> labelModel, final AjaxAction action) {
         this(panelId, null, labelModel, action);
@@ -61,6 +65,13 @@ public class AjaxLinkPanel extends Panel {
             }
         }, " "));
 
+        link.add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
+            @Override
+            public String getObject() {
+                return toolTipModel != null ? toolTipModel.getObject() : null;
+            }
+        }));
+
         link.add(new IconLabelPanel("label", iconName, labelModel));
 
     }
@@ -72,6 +83,16 @@ public class AjaxLinkPanel extends Panel {
 
     public AjaxLinkPanel setStyle(ToolStyle style) {
         this.style = style;
+        return this;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public AjaxLinkPanel setToolTip(IModel<String> model) {
+        if (model instanceof IComponentAssignedModel) {
+            this.toolTipModel = ((IComponentAssignedModel)model).wrapOnAssignment(this);
+        } else{
+            this.toolTipModel = model;
+        }
         return this;
     }
 

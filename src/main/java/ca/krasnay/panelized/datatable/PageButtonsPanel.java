@@ -1,6 +1,7 @@
 package ca.krasnay.panelized.datatable;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.model.Model;
 
 import ca.krasnay.panelized.AjaxAction;
 import ca.krasnay.panelized.AjaxLinkPanel;
@@ -36,7 +37,8 @@ public class PageButtonsPanel extends SpanContainerPanel {
             public boolean isEnabled() {
                 return !getDataTablePanel().isFirstPage();
             }
-        }.setStyle(ToolStyle.HOVER_BUTTON));
+        }.setStyle(ToolStyle.HOVER_BUTTON)
+        .setToolTip(Model.of("Previous Page")));
 
         AjaxAction nextAction = new AjaxAction() {
             @Override
@@ -50,7 +52,8 @@ public class PageButtonsPanel extends SpanContainerPanel {
             public boolean isEnabled() {
                 return !getDataTablePanel().isLastPage();
             }
-        }.setStyle(ToolStyle.HOVER_BUTTON));
+        }.setStyle(ToolStyle.HOVER_BUTTON)
+        .setToolTip(Model.of("Next Page")));
 
     }
 
