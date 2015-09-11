@@ -138,8 +138,12 @@ function onResize() {
 /**
  * Shows the given element as a modal.
  * @param e string|object DOM element or element ID to be shown as a modal popup.
+ * @param formTagId string Optional ID of an element that represents a form.
+ * Wicket supports nested forms by converting them to div's. When these are shown
+ * in a nested dialog, there is no longer a form tag in the hierarchy, which breaks
+ * Wicket.
  */
-var show = function (e) {
+var show = function (e, formTagId) {
 
   var $modal = $(e);
 
@@ -170,6 +174,16 @@ var show = function (e) {
   .data('parent', $modal.parent()) // Save the parent so we can put the popup back in place upon hide
   .appendTo('body')
   .show();
+
+  if (formTagId) {
+    var $formTag = $('#' + formTagId);
+    if ($formTag[0].tagName.toLowerCase() == "div") {
+      var id = $formTag.attr("id");
+      var $form = $("<form></form>").attr("method", "post").attr("enctype", "multipart/form-data").attr("id", id);
+      $formTag.removeAttr("id");
+      $formTag.wrap($form);
+    }
+  }
 
   onResize();
 

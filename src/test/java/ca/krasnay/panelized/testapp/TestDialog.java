@@ -4,6 +4,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.Model;
 
 import ca.krasnay.panelized.AjaxAction;
+import ca.krasnay.panelized.AjaxLinkPanel;
 import ca.krasnay.panelized.DialogPanel;
 import ca.krasnay.panelized.LabelledPanel;
 import ca.krasnay.panelized.RadioButtonPanel;
@@ -12,6 +13,8 @@ import ca.krasnay.panelized.TextAreaControl;
 import ca.krasnay.panelized.TextFieldControl;
 
 public class TestDialog extends DialogPanel {
+
+    private NestedDialog nestedDialog;
 
     public TestDialog(String id) {
         super(id);
@@ -44,8 +47,21 @@ public class TestDialog extends DialogPanel {
         guilty.addPanel(new LabelledPanel(guilty.newPanelId(), "Sentence")
         .addPanel(new TextFieldControl<String>("sentence", Model.of(""))));
 
+        frame.addPanel(new AjaxLinkPanel(frame.newPanelId(), Model.of("Show Nested Dialog"), new AjaxAction() {
+            public void invoke(AjaxRequestTarget target) {
+                nestedDialog.show(target, "Nested Dialog", new AjaxAction() {
+                    @Override
+                    public void invoke(AjaxRequestTarget target) {
+                        nestedDialog.hide(target);
+                    }
+                });
+            }
+        }));
+
         frame.addSaveButton(saveAction);
         frame.addCancelButton();
+
+        frame.addPanel(nestedDialog = new NestedDialog(frame.newPanelId()));
 
         super.show(target);
 

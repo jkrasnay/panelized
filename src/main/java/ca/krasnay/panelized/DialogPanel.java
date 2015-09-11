@@ -512,8 +512,9 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 //        target.appendJavaScript(String.format("$('#%s').draggable({ handle: '.bdr-hd' })",
 //                formPanel.getMarkupId()));
 
-        target.appendJavaScript(String.format("Panelized.Modal.show('#%s')",
-                JavaScriptUtils.escapeQuotes(getMarkupId())));
+        target.appendJavaScript(String.format("Panelized.Modal.show('#%s', '%s')",
+                JavaScriptUtils.escapeQuotes(getMarkupId()),
+                getForm().getMarkupId()));
 
         target.add(this);
 
