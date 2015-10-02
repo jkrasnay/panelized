@@ -115,6 +115,11 @@ public abstract class CheckablePanel extends Panel implements IHeaderContributor
         childItems.removeAllPanels();
     }
 
+    public CheckablePanel setEscapeHtml(boolean escapeHtml) {
+        label.setEscapeModelStrings(escapeHtml);
+        return this;
+    }
+
     /**
      * Sets whether this checkable functions as a heading for a group of subordinate controls.
      * This simply affects the styling of the control.
