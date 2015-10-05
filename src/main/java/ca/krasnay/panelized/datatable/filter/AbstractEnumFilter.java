@@ -164,5 +164,8 @@ public abstract class AbstractEnumFilter<E extends Enum<E>> implements DataTable
         return name;
     }
 
+    @Override
+    public void validate() {
+    }
 
 }

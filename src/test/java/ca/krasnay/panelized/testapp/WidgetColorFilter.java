@@ -13,4 +13,8 @@ public class WidgetColorFilter extends ListEnumFilter<Widget, Widget.Color> {
         return row.getColor();
     }
 
+    @Override
+    public void validate() {
+    }
+
 }

@@ -45,4 +45,11 @@ public interface DataTableFilter extends Serializable {
      */
     public void init(String stateString);
 
+    /**
+     * Perform form-level validation. If you need to do this, keep references to
+     * the fields you create in {@link #buildEditor(PanelContainer)} and inspect
+     * their converted inputs to validate.
+     */
+    public void validate();
+
 }

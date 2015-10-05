@@ -45,7 +45,6 @@ public class SelectCreatorEnumFilter<E extends Enum<E>> extends AbstractEnumFilt
         selectCreator.where(in(dbExpr, strings));
     }
 
-
 }
 
 

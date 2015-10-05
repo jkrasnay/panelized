@@ -310,6 +310,8 @@ public class DialogPanel extends Panel implements IHeaderContributor {
 
 //    private boolean showCloseIcon = true;
 
+    private Serializable modelObject;
+
 
     /**
      * Constructor.
@@ -418,6 +420,10 @@ public class DialogPanel extends Panel implements IHeaderContributor {
         return formPanel.getForm();
     }
 
+    public Serializable getModelObject() {
+        return modelObject;
+    }
+
     public final void hide(AjaxRequestTarget target) {
         hide(target, false);
     }
@@ -471,6 +477,7 @@ public class DialogPanel extends Panel implements IHeaderContributor {
      * that are wired to model object fields by their IDs.
      */
     public void setModel(Serializable modelObject) {
+        this.modelObject = modelObject;
         setDefaultModel(new CompoundPropertyModel<Object>(modelObject));
     }
 

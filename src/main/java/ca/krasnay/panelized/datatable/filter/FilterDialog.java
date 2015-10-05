@@ -31,4 +31,10 @@ public class FilterDialog extends DialogPanel {
         super.show(target);
 
     }
+
+    @Override
+    protected void validate() {
+        DataTableFilter filter = (DataTableFilter) getModelObject();
+        filter.validate();
+    }
 }
