@@ -184,7 +184,9 @@ public class DropDownMenuPanel extends Panel {
     }
 
     public void addPageLink(PageRef pageRef, IModel<String> linkTextModel, PopupSettings popupSettings) {
-        actions.add(new PageLinkAction(pageRef, linkTextModel, popupSettings));
+        if (accessController != null && accessController.canAccess(pageRef.getPageClass())) {
+            actions.add(new PageLinkAction(pageRef, linkTextModel, popupSettings));
+        }
     }
 
     public void addSeparator() {
