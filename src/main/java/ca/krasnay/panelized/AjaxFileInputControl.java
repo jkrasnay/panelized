@@ -27,6 +27,8 @@ public abstract class AjaxFileInputControl extends Panel {
 
     private List<FileUpload> fileUploads = new ArrayList<FileUpload>();
 
+    private boolean required;
+
     public AjaxFileInputControl(String id, IModel<String> linkTextModel) {
 
         super(id);
@@ -34,7 +36,12 @@ public abstract class AjaxFileInputControl extends Panel {
         Form<Void> form = new Form<Void>("form");
         add(form);
 
-        form.add(fileUploadField = new FileUploadField("fileInput", new PropertyModel<List<FileUpload>>(this, "fileUploads")));
+        form.add(fileUploadField = new FileUploadField("fileInput", new PropertyModel<List<FileUpload>>(this, "fileUploads")) {
+            @Override
+            public boolean isRequired() {
+                return AjaxFileInputControl.this.isRequired();
+            }
+        });
 
         fileUploadField.add(new AjaxFormSubmitBehavior("change") {
 
@@ -60,6 +67,14 @@ public abstract class AjaxFileInputControl extends Panel {
 
     }
 
+    public boolean isRequired() {
+        return required;
+    }
+
     protected abstract void onChange(AjaxRequestTarget target, FileUpload fileUpload);
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
 
 }
