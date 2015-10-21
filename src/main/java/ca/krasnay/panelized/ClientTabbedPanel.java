@@ -34,8 +34,14 @@ public class ClientTabbedPanel extends Panel {
     private int selectedTabIndex = 0;
 
     public ClientTabbedPanel(String id, final List<ITab> tabs) {
+        this(id, tabs, 0);
+    }
+
+    public ClientTabbedPanel(String id, final List<ITab> tabs, int selectedTabIndex) {
 
         super(id);
+
+        this.selectedTabIndex = selectedTabIndex;
 
         setOutputMarkupId(true);
 
@@ -59,7 +65,7 @@ public class ClientTabbedPanel extends Panel {
             tabContainer.add(new AttributeAppender("class", new AbstractReadOnlyModel<String>() {
                 @Override
                 public String getObject() {
-                    return tabIndex == selectedTabIndex ? "selected" : null;
+                    return tabIndex == ClientTabbedPanel.this.selectedTabIndex ? "selected" : null;
                 }
             }, " "));
 
@@ -96,7 +102,7 @@ public class ClientTabbedPanel extends Panel {
             panel.add(new AttributeAppender("style", new AbstractReadOnlyModel<String>() {
                 @Override
                 public String getObject() {
-                    return tabIndex == selectedTabIndex ? null : "display:none";
+                    return tabIndex == ClientTabbedPanel.this.selectedTabIndex ? null : "display:none";
                 }
             }, ";"));
 
