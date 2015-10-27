@@ -173,6 +173,10 @@ public class SelectCreatorDataProvider extends SortableDataProvider<RowMap, Stri
             creator.orderBy(getSort().getProperty(), getSort().isAscending());
         }
 
+        if (getSecondarySort() != null) {
+            creator.orderBy(getSecondarySort().getProperty(), getSecondarySort().isAscending());
+        }
+
         creator.orderBy(uniqueColumn);
 
         log.debug("Executing query: " + creator);
