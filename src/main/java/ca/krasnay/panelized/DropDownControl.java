@@ -7,6 +7,7 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.model.IComponentAssignedModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
@@ -170,7 +171,11 @@ public class DropDownControl<T> extends AbstractControl<T> {
     }
 
     public DropDownControl<T> setNullOptionText(IModel<String> nullOptionText) {
-        this.nullOptionText = nullOptionText;
+        if (nullOptionText instanceof IComponentAssignedModel) {
+            this.nullOptionText = ((IComponentAssignedModel<String>) nullOptionText).wrapOnAssignment(this);
+        } else {
+            this.nullOptionText = nullOptionText;
+        }
         return this;
     }
 
