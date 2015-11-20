@@ -29,7 +29,7 @@ public class BorderedFormPanel extends FormPanel {
 
     private ButtonsPanel leftButtonsPanel;
 
-    public BorderedFormPanel(String id, Model<String> titleModel) {
+    public BorderedFormPanel(String id, IModel<String> titleModel) {
 
         super(id);
 

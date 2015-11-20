@@ -175,6 +175,18 @@
             <goals>
               <goal>jar</goal>
             </goals>
+            <!--
+              For more info:
+                http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+                http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html
+
+              Also, if the project is open in Eclipse you'll have test classes mixed in
+              under test/classes, and Javadoc will fail, complaining it can't find
+              junit.framework.TestCase. To fix this, run `mvn clean install`
+            -->
+            <configuration>
+              <additionalparam>-Xdoclint:-missing</additionalparam>
+            </configuration>
           </execution>
         </executions>
       </plugin>
